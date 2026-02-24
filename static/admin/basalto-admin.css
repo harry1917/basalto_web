@@ -1,0 +1,166 @@
+/* Basalto Admin Skin (Ralph earth / catalog) */
+/* ✅ Solo aplicar skin cuando NO es login */
+body:not(.login) {
+  background: linear-gradient(180deg, var(--bg), var(--bg2)) !important;
+}
+
+:root{
+    --bg:#fbfaf7;
+    --bg2:#f6f4ef;
+    --paper:#ffffff;
+    --ink:#111111;
+    --muted:#5b5b5b;
+    --line:#e6e2da;
+  
+    --r2:18px;
+    --rCard:14px;
+  
+    --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+    --serif: ui-serif, Georgia, "Times New Roman", Times, serif;
+  }
+  
+  /* Background */
+  html, body, #container{
+    background: linear-gradient(180deg, var(--bg), var(--bg2)) !important;
+    color: var(--ink);
+    font-family: var(--sans);
+  }
+  
+  /* Header bar */
+  #header{
+    background: rgba(251,250,247,.88) !important;
+    border-bottom: 1px solid var(--line) !important;
+    backdrop-filter: blur(10px);
+  }
+  
+  #branding h1, #branding h1 a{
+    font-family: var(--sans) !important;
+    font-weight: 800 !important;
+    letter-spacing: .28em !important;
+    text-transform: uppercase !important;
+    font-size: 13px !important;
+    color: var(--ink) !important;
+  }
+  
+  #user-tools, #user-tools a{
+    font-family: var(--sans) !important;
+    color: var(--muted) !important;
+    font-size: 12.5px !important;
+    letter-spacing: .06em;
+  }
+  
+  /* Breadcrumbs */
+  .breadcrumbs{
+    background: transparent !important;
+    border: 0 !important;
+    color: var(--muted) !important;
+    font-family: var(--sans) !important;
+  }
+  
+  /* Main cards/modules */
+  .module,
+  .inline-group,
+  .dashboard-module,
+  #content-main,
+  #content-related{
+    background: var(--paper) !important;
+    border: 1px solid var(--line) !important;
+    border-radius: var(--r2) !important;
+    overflow: hidden;
+  }
+  
+  /* Module headings */
+  .module h2, .module caption, .inline-group h2{
+    background: #fff !important;
+    border-bottom: 1px solid var(--line) !important;
+    color: var(--ink) !important;
+    font-family: var(--serif) !important;
+    font-size: 16px !important;
+    letter-spacing: .02em !important;
+  }
+  
+  /* Tables */
+  #result_list{
+    border: 1px solid var(--line) !important;
+    border-radius: var(--r2) !important;
+    overflow: hidden;
+  }
+  
+  #result_list thead th{
+    background: #fff !important;
+    border-bottom: 1px solid var(--line) !important;
+    color: var(--muted) !important;
+    font-size: 11.5px !important;
+    letter-spacing: .10em !important;
+    text-transform: uppercase !important;
+  }
+  
+  #result_list tbody tr:hover{
+    background: #f6f4ef !important;
+  }
+  
+  /* Forms */
+  fieldset.module{
+    border: 1px solid var(--line) !important;
+    border-radius: var(--r2) !important;
+  }
+  
+  input, select, textarea{
+    border: 1px solid var(--line) !important;
+    border-radius: 10px !important;
+    padding: 10px 12px !important;
+    font-family: var(--sans) !important;
+    background: #fff !important;
+  }
+  
+  input:focus, select:focus, textarea:focus{
+    outline: none !important;
+    border-color: rgba(17,17,17,.35) !important;
+    box-shadow: 0 0 0 4px rgba(17,17,17,.08) !important;
+  }
+  
+  /* Buttons (Ralph-like) */
+  .button, input[type=submit], input[type=button], .submit-row input, a.button{
+    border: 1px solid var(--line) !important;
+    background: #fff !important;
+    color: var(--ink) !important;
+    border-radius: 10px !important;
+    padding: 10px 14px !important;
+    font-family: var(--sans) !important;
+    font-size: 13px !important;
+    cursor: pointer !important;
+  }
+  
+  .button:hover, input[type=submit]:hover, a.button:hover{
+    background: #f6f4ef !important;
+  }
+  
+  .button.default, .submit-row input.default{
+    background: var(--ink) !important;
+    border-color: var(--ink) !important;
+    color: #fff !important;
+  }
+  
+  /* Pills / filters */
+  .selector-chosen h2,
+  .selector-available h2{
+    font-family: var(--sans) !important;
+    letter-spacing: .10em !important;
+    text-transform: uppercase !important;
+    font-size: 12px !important;
+  }
+  
+  /* Messages */
+  .messagelist li{
+    border: 1px solid var(--line) !important;
+    border-radius: var(--r2) !important;
+    background: #fff !important;
+  }
+  
+  /* Sidebar */
+  #nav-sidebar{
+    background: rgba(255,255,255,.85) !important;
+    border-right: 1px solid var(--line) !important;
+    backdrop-filter: blur(10px);
+  }
+  

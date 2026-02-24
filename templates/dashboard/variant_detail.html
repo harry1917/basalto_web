@@ -1,0 +1,33 @@
+{% extends "dashboard/base_dashboard.html" %}
+{% block title %}Basalto · {{ v.sku }}{% endblock %}
+{% block page_title %}{{ v.product.title }}{% endblock %}
+{% block page_sub %}SKU {{ v.sku }} · editar stock{% endblock %}
+
+{% block content %}
+<div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;">
+  <a class="btn" href="{% url 'orders:dashboard_inventory' %}">← Volver</a>
+  <div class="pill">Variante: <b style="color:var(--ink)">{{ v.sleeve }} · {{ v.color }} · {{ v.size }} · {{ v.fabric }}</b></div>
+</div>
+
+<div class="card" style="margin-top:12px;">
+  <div class="card-h">
+    <div>
+      <h2>Stock</h2>
+      <p>Actualiza inventario manualmente</p>
+    </div>
+    <div class="pill">Actual: <b style="color:var(--ink)">{{ v.inventory }}</b></div>
+  </div>
+
+  <div style="padding:14px 16px;">
+    <form method="post" action="{% url 'orders:dashboard_variant_set_stock' v.id %}" style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+      {% csrf_token %}
+      <input class="input" type="number" name="inventory" value="{{ v.inventory }}" style="width:180px;">
+      <button class="btn primary" type="submit">Guardar</button>
+    </form>
+
+    <div class="muted" style="margin-top:12px;">
+      Low stock threshold: <b>{{ v.low_stock_threshold }}</b>
+    </div>
+  </div>
+</div>
+{% endblock %}

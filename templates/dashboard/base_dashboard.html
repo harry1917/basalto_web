@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{% block title %}Basalto · Dashboard{% endblock %}</title>
+  <style>
+    :root{
+      --bg:#fbfaf7;
+      --bg2:#f6f4ef;
+      --paper:#ffffff;
+      --ink:#111111;
+      --muted:#5b5b5b;
+      --line:#e6e2da;
+
+      --r2:18px;
+      --rCard:14px;
+
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      --serif: ui-serif, Georgia, "Times New Roman", Times, serif;
+      --shadow: 0 18px 50px rgba(0,0,0,.08);
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:var(--sans);
+      color:var(--ink);
+      background: linear-gradient(180deg, var(--bg), var(--bg2));
+      letter-spacing:.08px;
+    }
+    a{color:inherit;text-decoration:none}
+
+    .shell{
+      min-height:100vh;
+      display:grid;
+      grid-template-columns: 260px 1fr;
+    }
+    @media (max-width: 980px){
+      .shell{grid-template-columns: 1fr;}
+      .sidebar{display:none;}
+    }
+
+    /* Sidebar */
+    .sidebar{
+      position:sticky; top:0;
+      height:100vh;
+      padding:18px 14px;
+      border-right:1px solid var(--line);
+      background: rgba(255,255,255,.60);
+      backdrop-filter: blur(10px);
+    }
+    .brand{
+      display:flex; flex-direction:column; gap:6px;
+      padding:12px 12px 14px;
+      border:1px solid var(--line);
+      border-radius: var(--r2);
+      background:#fff;
+    }
+    .logo{
+      font-weight:800;
+      letter-spacing:.28em;
+      font-size:13px;
+      text-transform:uppercase;
+    }
+    .tagline{color:var(--muted); font-size:12px; line-height:1.4}
+
+    .nav{
+      margin-top:14px;
+      display:flex; flex-direction:column; gap:8px;
+    }
+    .nav a{
+      border:1px solid var(--line);
+      border-radius: 14px;
+      background:#fff;
+      padding:10px 12px;
+      font-size:12.5px;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      color:var(--muted);
+    }
+    .nav a:hover{background:#f6f4ef;color:var(--ink)}
+    .nav a.active{
+      background:var(--ink);
+      border-color:var(--ink);
+      color:#fff;
+    }
+
+    .sidefoot{
+      position:absolute;
+      bottom:18px; left:14px; right:14px;
+      display:flex; flex-direction:column; gap:10px;
+    }
+    .sidepill{
+      border:1px solid var(--line);
+      border-radius: 14px;
+      background:#fff;
+      padding:10px 12px;
+      color:var(--muted);
+      font-size:12px;
+    }
+    .logout{
+      display:inline-flex; align-items:center; justify-content:center;
+      border-radius: 14px;
+      padding:10px 12px;
+      border:1px solid var(--line);
+      background:#fff;
+      font-size:12px;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      cursor:pointer;
+    }
+    .logout:hover{background:#f6f4ef}
+
+    /* Main */
+    .main{
+      padding:18px 18px 26px;
+    }
+
+    /* Top header */
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+      padding:14px 16px;
+      border:1px solid var(--line);
+      border-radius: var(--r2);
+      background: rgba(255,255,255,.75);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 12px 40px rgba(0,0,0,.06);
+    }
+    .top-left{display:flex; flex-direction:column; gap:3px}
+    .top-title{
+      margin:0;
+      font-family:var(--serif);
+      font-size:20px;
+      letter-spacing:.02em;
+    }
+    .top-sub{color:var(--muted); font-size:13px}
+
+    .top-actions{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:10px; border-radius:10px; padding:10px 14px;
+      border:1px solid var(--line);
+      background:#fff;
+      font-size:13px; cursor:pointer; user-select:none;
+    }
+    .btn:hover{background:#f6f4ef}
+    .btn.primary{background:var(--ink); color:#fff; border-color:var(--ink);}
+
+    /* Cards + table */
+    .grid{display:grid; gap:12px}
+    .stats{
+      margin-top:14px;
+      display:grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap:10px;
+    }
+    @media (max-width: 1100px){ .stats{grid-template-columns: repeat(3, 1fr);} }
+    @media (max-width: 560px){ .stats{grid-template-columns: repeat(2, 1fr);} }
+
+    .stat{
+      border:1px solid var(--line);
+      border-radius: var(--rCard);
+      background:#fff;
+      padding:12px 12px 10px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.05);
+    }
+    .stat .k{font-size:11px; letter-spacing:.10em; text-transform:uppercase; color:var(--muted)}
+    .stat .v{margin-top:6px; font-family:var(--serif); font-size:22px}
+
+    .card{
+      margin-top:12px;
+      border:1px solid var(--line);
+      border-radius: var(--r2);
+      background:#fff;
+      overflow:hidden;
+      box-shadow: var(--shadow);
+    }
+    .card-h{
+      padding:14px 16px;
+      border-bottom:1px solid var(--line);
+      display:flex; align-items:flex-end; justify-content:space-between; gap:12px;
+    }
+    .card-h h2{margin:0; font-family:var(--serif); font-size:18px}
+    .card-h p{margin:6px 0 0; color:var(--muted); font-size:13px}
+
+    .filters{
+      display:flex; gap:10px; align-items:center; flex-wrap:wrap;
+    }
+    .input, select{
+      border:1px solid var(--line);
+      border-radius: 12px;
+      padding:10px 12px;
+      background:#fff;
+      font-family:var(--sans);
+      font-size:13px;
+    }
+
+    .pills{display:flex; gap:8px; flex-wrap:wrap}
+    .pill{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:8px 12px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:#fff;
+      color:var(--muted);
+      font-size:12px;
+      white-space:nowrap;
+      text-transform:uppercase;
+      letter-spacing:.06em;
+    }
+    .pill:hover{background:#f6f4ef;color:var(--ink)}
+    .pill.active{
+      background: var(--ink);
+      border-color: var(--ink);
+      color:#fff;
+    }
+
+    table{width:100%; border-collapse:collapse}
+    th,td{padding:12px 14px; border-top:1px solid #f0ece4; vertical-align:top}
+    th{
+      background:#fff;
+      color:var(--muted);
+      font-size:11.5px;
+      letter-spacing:.10em;
+      text-transform:uppercase;
+      border-top:none;
+    }
+    tr:hover td{background:#fbf7ef}
+    .muted{color:var(--muted)}
+    .mono{font-variant-numeric: tabular-nums}
+
+    .row-actions{display:flex; gap:8px; flex-wrap:wrap; align-items:center}
+    .link{
+      font-size:12px; letter-spacing:.06em; text-transform:uppercase;
+      border:1px solid var(--line);
+      border-radius:10px;
+      padding:9px 10px;
+      background:#fff;
+    }
+    .link:hover{background:#f6f4ef}
+    .select-mini{
+      border:1px solid var(--line);
+      border-radius:10px;
+      padding:8px 10px;
+      background:#fff;
+      font-size:12px;
+    }
+    .ok-mini{
+      border:1px solid var(--ink);
+      background:var(--ink);
+      color:#fff;
+      border-radius:10px;
+      padding:8px 10px;
+      font-size:12px;
+      cursor:pointer;
+    }
+
+    .pager{
+      display:flex; justify-content:space-between; align-items:center;
+      padding:12px 14px;
+      border-top:1px solid var(--line);
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="logo">BASALTO</div>
+        <div class="tagline">Panel privado · Órdenes & logística</div>
+      </div>
+
+      <nav class="nav">
+        <a class="active" href="{% url 'orders:dashboard_orders' %}">Órdenes</a>
+        <a href="{% url 'orders:dashboard_inventory' %}">Inventario</a>
+
+      </nav>
+
+      <div class="sidefoot">
+        <div class="sidepill">
+          {% if request.user.is_authenticated %}
+            Sesión: <b>{{ request.user.username }}</b>
+          {% else %}
+            <span class="muted">No autenticado</span>
+          {% endif %}
+        </div>
+        <a class="logout" href="{% url 'orders:dashboard_logout' %}">Log out</a>
+      </div>
+    </aside>
+
+    <main class="main">
+      <div class="topbar">
+        <div class="top-left">
+          <h1 class="top-title">{% block page_title %}Órdenes{% endblock %}</h1>
+          <div class="top-sub">{% block page_sub %}Gestión rápida con estilo catálogo{% endblock %}</div>
+        </div>
+        <div class="top-actions">
+          <a class="btn" href="/admin/" target="_blank" rel="noopener">Admin</a>
+          <a class="btn primary" href="{% url 'orders:dashboard_orders' %}">Dashboard</a>
+        </div>
+      </div>
+
+      {% block content %}{% endblock %}
+    </main>
+  </div>
+  <script>
+    function copyText(text){
+      if(!text) return;
+      navigator.clipboard.writeText(text).then(() => {
+        const n = document.createElement('div');
+        n.textContent = 'Copiado';
+        n.style.position='fixed';
+        n.style.bottom='20px';
+        n.style.right='20px';
+        n.style.padding='10px 12px';
+        n.style.background='#111';
+        n.style.color='#fff';
+        n.style.borderRadius='10px';
+        n.style.fontSize='12px';
+        n.style.zIndex='9999';
+        document.body.appendChild(n);
+        setTimeout(()=>n.remove(),1200);
+      });
+    }
+  </script>
+  
+</body>
+</html>

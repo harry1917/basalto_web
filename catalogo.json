@@ -1,0 +1,1070 @@
+[
+{
+  "model": "orders.product",
+  "pk": 1,
+  "fields": {
+    "title": "Camisa cuello chino",
+    "slug": "camisa-cuello-chino",
+    "description": "Camisas cuello chino en manta hindú. Producción por lote.",
+    "active": true
+  }
+},
+{
+  "model": "orders.variant",
+  "pk": 1,
+  "fields": {
+    "product": 1,
+    "sku": "BAS-CC-ML-NGR-S",
+    "sleeve": "Manga larga",
+    "color": "Negro",
+    "size": "S",
+    "fabric": "Manta hindú",
+    "img": "https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769279886/1_gpnmku.png",
+    "price": "30.00",
+    "inventory": 12,
+    "low_stock_threshold": 3,
+    "active": true,
+    "updated_at": "2026-01-16T23:36:49.698Z",
+    "compare_at": "35.00"
+  }
+},
+{
+  "model": "orders.variant",
+  "pk": 2,
+  "fields": {
+    "product": 1,
+    "sku": "BAS-CC-ML-NGR-M",
+    "sleeve": "Manga larga",
+    "color": "Negro",
+    "size": "M",
+    "fabric": "Manta hindú",
+    "img": "https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769279886/1_gpnmku.png",
+    "price": "30.00",
+    "inventory": 12,
+    "low_stock_threshold": 3,
+    "active": true,
+    "updated_at": "2026-01-16T23:36:49.708Z",
+    "compare_at": "35.00"
+  }
+},
+{
+  "model": "orders.variant",
+  "pk": 3,
+  "fields": {
+    "product": 1,
+    "sku": "BAS-CC-ML-NGR-L",
+    "sleeve": "Manga larga",
+    "color": "Negro",
+    "size": "L",
+    "fabric": "Manta hindú",
+    "img": "https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769279886/1_gpnmku.png",
+    "price": "30.00",
+    "inventory": 12,
+    "low_stock_threshold": 3,
+    "active": true,
+    "updated_at": "2026-01-16T23:36:49.711Z",
+    "compare_at": "35.00"
+  }
+},
+{
+  "model": "orders.variant",
+  "pk": 4,
+  "fields": {
+    "product": 1,
+    "sku": "BAS-CC-ML-NGR-XL",
+    "sleeve": "Manga larga",
+    "color": "Negro",
+    "size": "XL",
+    "fabric": "Manta hindú",
+    "img": "https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769279886/1_gpnmku.png",
+    "price": "30.00",
+    "inventory": 12,
+    "low_stock_threshold": 3,
+    "active": true,
+    "updated_at": "2026-01-16T23:36:49.713Z",
+    "compare_at": "35.00"
+  }
+},
+{
+  "model": "orders.variant",
+  "pk": 5,
+  "fields": {
+    "product": 1,
+    "sku": "BAS-CC-ML-NGR-XXL",
+    "sleeve": "Manga larga",
+    "color": "Negro",
+    "size": "XXL",
+    "fabric": "Manta hindú",
+    "img": "https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769279886/1_gpnmku.png",
+    "price": "30.00",
+    "inventory": 12,
+    "low_stock_threshold": 3,
+    "active": true,
+    "updated_at": "2026-01-16T23:36:49.716Z",
+    "compare_at": "35.00"
+  }
+},
+{
+  "model": "orders.variant",
+  "pk": 6,
+  "fields": {
+    "product": 1,
+    "sku": "BAS-CC-ML-AZL-S",
+    "sleeve": "Manga larga",
+    "color": "Azul",
+    "size": "S",
+    "fabric": "Manta hindú",
+    "img": "https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769279888/2_jqb5mm.png",
+    "price": "30.00",
+    "inventory": 12,
+    "low_stock_threshold": 3,
+    "active": true,
+    "updated_at": "2026-01-16T23:36:49.719Z",
+    "compare_at": "35.00"
+  }
+},
+{
+  "model": "orders.variant",
+  "pk": 7,
+  "fields": {
+    "product": 1,
+    "sku": "BAS-CC-ML-AZL-M",
+    "sleeve": "Manga larga",
+    "color": "Azul",
+    "size": "M",
+    "fabric": "Manta hindú",
+    "img": "https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769279888/2_jqb5mm.png",
+    "price": "30.00",
+    "inventory": 12,
+    "low_stock_threshold": 3,
+    "active": true,
+    "updated_at": "2026-01-16T23:36:49.721Z",
+    "compare_at": "35.00"
+  }
+},
+{
+  "model": "orders.variant",
+  "pk": 8,
+  "fields": {
+    "product": 1,
+    "sku": "BAS-CC-ML-AZL-L",
+    "sleeve": "Manga larga",
+    "color": "Azul",
+    "size": "L",
+    "fabric": "Manta hindú",
+    "img": "https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769279888/2_jqb5mm.png",
+    "price": "30.00",
+    "inventory": 12,
+    "low_stock_threshold": 3,
+    "active": true,
+    "updated_at": "2026-01-16T23:36:49.724Z",
+    "compare_at": "35.00"
+  }
+},
+{
+  "model": "orders.variant",
+  "pk": 9,
+  "fields": {
+    "product": 1,
+    "sku": "BAS-CC-ML-AZL-XL",
+    "sleeve": "Manga larga",
+    "color": "Azul",
+    "size": "XL",
+    "fabric": "Manta hindú",
+    "img": "https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769279888/2_jqb5mm.png",
+    "price": "30.00",
+    "inventory": 12,
+    "low_stock_threshold": 3,
+    "active": true,
+    "updated_at": "2026-01-16T23:36:49.726Z",
+    "compare_at": "35.00"
+  }
+},
+{
+  "model": "orders.variant",
+  "pk": 10,
+  "fields": {
+    "product": 1,
+    "sku": "BAS-CC-ML-AZL-XXL",
+    "sleeve": "Manga larga",
+    "color": "Azul",
+    "size": "XXL",
+    "fabric": "Manta hindú",
+    "img": "https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769279888/2_jqb5mm.png",
+    "price": "30.00",
+    "inventory": 12,
+    "low_stock_threshold": 3,
+    "active": true,
+    "updated_at": "2026-01-16T23:36:49.729Z",
+    "compare_at": "35.00"
+  }
+},
+{
+  "model": "orders.variant",
+  "pk": 11,
+  "fields": {
+    "product": 1,
+    "sku": "BAS-CC-ML-BLN-S",
+    "sleeve": "Manga larga",
+    "color": "Blanco",
+    "size": "S",
+    "fabric": "Lino Americano",
+    "img": "https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769279888/3_by3ip2.png",
+    "price": "30.00",
+    "inventory": 12,
+    "low_stock_threshold": 3,
+    "active": true,
+    "updated_at": "2026-01-16T23:36:49.732Z",
+    "compare_at": "35.00"
+  }
+},
+{
+  "model": "orders.variant",
+  "pk": 12,
+  "fields": {
+    "product": 1,
+    "sku": "BAS-CC-ML-BLN-M",
+    "sleeve": "Manga larga",
+    "color": "Blanco",
+    "size": "M",
+    "fabric": "Lino Americano",
+    "img": "https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769279888/3_by3ip2.png",
+    "price": "30.00",
+    "inventory": 12,
+    "low_stock_threshold": 3,
+    "active": true,
+    "updated_at": "2026-01-16T23:36:49.734Z",
+    "compare_at": "35.00"
+  }
+},
+{
+  "model": "orders.variant",
+  "pk": 13,
+  "fields": {
+    "product": 1,
+    "sku": "BAS-CC-ML-BLN-L",
+    "sleeve": "Manga larga",
+    "color": "Blanco",
+    "size": "L",
+    "fabric": "Lino Americano",
+    "img": "https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769279888/3_by3ip2.png",
+    "price": "30.00",
+    "inventory": 12,
+    "low_stock_threshold": 3,
+    "active": true,
+    "updated_at": "2026-01-16T23:36:49.737Z",
+    "compare_at": "35.00"
+  }
+},
+{
+  "model": "orders.variant",
+  "pk": 14,
+  "fields": {
+    "product": 1,
+    "sku": "BAS-CC-ML-BLN-XL",
+    "sleeve": "Manga larga",
+    "color": "Blanco",
+    "size": "XL",
+    "fabric": "Lino Americano",
+    "img": "https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769279888/3_by3ip2.png",
+    "price": "30.00",
+    "inventory": 12,
+    "low_stock_threshold": 3,
+    "active": true,
+    "updated_at": "2026-01-16T23:36:49.741Z",
+    "compare_at": "35.00"
+  }
+},
+{
+  "model": "orders.variant",
+  "pk": 15,
+  "fields": {
+    "product": 1,
+    "sku": "BAS-CC-ML-BLN-XXL",
+    "sleeve": "Manga larga",
+    "color": "Blanco",
+    "size": "XXL",
+    "fabric": "Lino Americano",
+    "img": "https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769279888/3_by3ip2.png",
+    "price": "30.00",
+    "inventory": 12,
+    "low_stock_threshold": 3,
+    "active": true,
+    "updated_at": "2026-01-16T23:36:49.743Z",
+    "compare_at": "35.00"
+  }
+},
+{
+  "model": "orders.variant",
+  "pk": 16,
+  "fields": {
+    "product": 1,
+    "sku": "BAS-CC-ML-VMU-S",
+    "sleeve": "Manga larga",
+    "color": "Verde musgo",
+    "size": "S",
+    "fabric": "Manta hindú",
+    "img": "https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769279890/4_vcawo0.png",
+    "price": "30.00",
+    "inventory": 12,
+    "low_stock_threshold": 3,
+    "active": true,
+    "updated_at": "2026-01-16T23:36:49.745Z",
+    "compare_at": "35.00"
+  }
+},
+{
+  "model": "orders.variant",
+  "pk": 17,
+  "fields": {
+    "product": 1,
+    "sku": "BAS-CC-ML-VMU-M",
+    "sleeve": "Manga larga",
+    "color": "Verde musgo",
+    "size": "M",
+    "fabric": "Manta hindú",
+    "img": "https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769279890/4_vcawo0.png",
+    "price": "30.00",
+    "inventory": 12,
+    "low_stock_threshold": 3,
+    "active": true,
+    "updated_at": "2026-01-16T23:36:49.748Z",
+    "compare_at": "35.00"
+  }
+},
+{
+  "model": "orders.variant",
+  "pk": 18,
+  "fields": {
+    "product": 1,
+    "sku": "BAS-CC-ML-VMU-L",
+    "sleeve": "Manga larga",
+    "color": "Verde musgo",
+    "size": "L",
+    "fabric": "Manta hindú",
+    "img": "https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769279890/4_vcawo0.png",
+    "price": "30.00",
+    "inventory": 12,
+    "low_stock_threshold": 3,
+    "active": true,
+    "updated_at": "2026-01-16T23:36:49.751Z",
+    "compare_at": "35.00"
+  }
+},
+{
+  "model": "orders.variant",
+  "pk": 19,
+  "fields": {
+    "product": 1,
+    "sku": "BAS-CC-ML-VMU-XL",
+    "sleeve": "Manga larga",
+    "color": "Verde musgo",
+    "size": "XL",
+    "fabric": "Manta hindú",
+    "img": "https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769279890/4_vcawo0.png",
+    "price": "30.00",
+    "inventory": 12,
+    "low_stock_threshold": 3,
+    "active": true,
+    "updated_at": "2026-01-16T23:36:49.753Z",
+    "compare_at": "35.00"
+  }
+},
+{
+  "model": "orders.variant",
+  "pk": 20,
+  "fields": {
+    "product": 1,
+    "sku": "BAS-CC-ML-VMU-XXL",
+    "sleeve": "Manga larga",
+    "color": "Verde musgo",
+    "size": "XXL",
+    "fabric": "Manta hindú",
+    "img": "https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769279890/4_vcawo0.png",
+    "price": "30.00",
+    "inventory": 12,
+    "low_stock_threshold": 3,
+    "active": true,
+    "updated_at": "2026-01-16T23:36:49.756Z",
+    "compare_at": "35.00"
+  }
+},
+{
+  "model": "orders.variant",
+  "pk": 21,
+  "fields": {
+    "product": 1,
+    "sku": "BAS-CC-ML-BEI-S",
+    "sleeve": "Manga larga",
+    "color": "Beige",
+    "size": "S",
+    "fabric": "Manta hindú",
+    "img": "https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769279892/5_jrjnws.png",
+    "price": "30.00",
+    "inventory": 12,
+    "low_stock_threshold": 3,
+    "active": true,
+    "updated_at": "2026-01-16T23:36:49.759Z",
+    "compare_at": "35.00"
+  }
+},
+{
+  "model": "orders.variant",
+  "pk": 22,
+  "fields": {
+    "product": 1,
+    "sku": "BAS-CC-ML-BEI-M",
+    "sleeve": "Manga larga",
+    "color": "Beige",
+    "size": "M",
+    "fabric": "Manta hindú",
+    "img": "https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769279892/5_jrjnws.png",
+    "price": "30.00",
+    "inventory": 3,
+    "low_stock_threshold": 3,
+    "active": true,
+    "updated_at": "2026-01-19T05:11:53.725Z",
+    "compare_at": "35.00"
+  }
+},
+{
+  "model": "orders.variant",
+  "pk": 23,
+  "fields": {
+    "product": 1,
+    "sku": "BAS-CC-ML-BEI-L",
+    "sleeve": "Manga larga",
+    "color": "Beige",
+    "size": "L",
+    "fabric": "Manta hindú",
+    "img": "https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769279892/5_jrjnws.png",
+    "price": "30.00",
+    "inventory": 12,
+    "low_stock_threshold": 3,
+    "active": true,
+    "updated_at": "2026-01-16T23:36:49.764Z",
+    "compare_at": "35.00"
+  }
+},
+{
+  "model": "orders.variant",
+  "pk": 24,
+  "fields": {
+    "product": 1,
+    "sku": "BAS-CC-ML-BEI-XL",
+    "sleeve": "Manga larga",
+    "color": "Beige",
+    "size": "XL",
+    "fabric": "Manta hindú",
+    "img": "https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769279892/5_jrjnws.png",
+    "price": "30.00",
+    "inventory": 12,
+    "low_stock_threshold": 3,
+    "active": true,
+    "updated_at": "2026-01-16T23:36:49.767Z",
+    "compare_at": "35.00"
+  }
+},
+{
+  "model": "orders.variant",
+  "pk": 25,
+  "fields": {
+    "product": 1,
+    "sku": "BAS-CC-ML-BEI-XXL",
+    "sleeve": "Manga larga",
+    "color": "Beige",
+    "size": "XXL",
+    "fabric": "Manta hindú",
+    "img": "https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769279892/5_jrjnws.png",
+    "price": "30.00",
+    "inventory": 12,
+    "low_stock_threshold": 3,
+    "active": true,
+    "updated_at": "2026-01-16T23:36:49.770Z",
+    "compare_at": "35.00"
+  }
+},
+{
+  "model": "orders.variant",
+  "pk": 26,
+  "fields": {
+    "product": 1,
+    "sku": "BAS-CC-MC-NGR-S",
+    "sleeve": "Manga corta",
+    "color": "Negro",
+    "size": "S",
+    "fabric": "Manta hindú",
+    "img": "https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769279894/6_rjy9t3.png",
+    "price": "25.00",
+    "inventory": 12,
+    "low_stock_threshold": 3,
+    "active": true,
+    "updated_at": "2026-01-16T23:36:49.773Z",
+    "compare_at": "30.00"
+  }
+},
+{
+  "model": "orders.variant",
+  "pk": 27,
+  "fields": {
+    "product": 1,
+    "sku": "BAS-CC-MC-NGR-M",
+    "sleeve": "Manga corta",
+    "color": "Negro",
+    "size": "M",
+    "fabric": "Manta hindú",
+    "img": "https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769279894/6_rjy9t3.png",
+    "price": "25.00",
+    "inventory": 12,
+    "low_stock_threshold": 3,
+    "active": true,
+    "updated_at": "2026-01-16T23:36:49.775Z",
+    "compare_at": "30.00"
+  }
+},
+{
+  "model": "orders.variant",
+  "pk": 28,
+  "fields": {
+    "product": 1,
+    "sku": "BAS-CC-MC-NGR-L",
+    "sleeve": "Manga corta",
+    "color": "Negro",
+    "size": "L",
+    "fabric": "Manta hindú",
+    "img": "https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769279894/6_rjy9t3.png",
+    "price": "25.00",
+    "inventory": 12,
+    "low_stock_threshold": 3,
+    "active": true,
+    "updated_at": "2026-01-16T23:36:49.778Z",
+    "compare_at": "30.00"
+  }
+},
+{
+  "model": "orders.variant",
+  "pk": 29,
+  "fields": {
+    "product": 1,
+    "sku": "BAS-CC-MC-NGR-XL",
+    "sleeve": "Manga corta",
+    "color": "Negro",
+    "size": "XL",
+    "fabric": "Manta hindú",
+    "img": "https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769279894/6_rjy9t3.png",
+    "price": "25.00",
+    "inventory": 12,
+    "low_stock_threshold": 3,
+    "active": true,
+    "updated_at": "2026-01-16T23:36:49.781Z",
+    "compare_at": "30.00"
+  }
+},
+{
+  "model": "orders.variant",
+  "pk": 30,
+  "fields": {
+    "product": 1,
+    "sku": "BAS-CC-MC-NGR-XXL",
+    "sleeve": "Manga corta",
+    "color": "Negro",
+    "size": "XXL",
+    "fabric": "Manta hindú",
+    "img": "https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769279894/6_rjy9t3.png",
+    "price": "25.00",
+    "inventory": 12,
+    "low_stock_threshold": 3,
+    "active": true,
+    "updated_at": "2026-01-16T23:36:49.784Z",
+    "compare_at": "30.00"
+  }
+},
+{
+  "model": "orders.variant",
+  "pk": 31,
+  "fields": {
+    "product": 1,
+    "sku": "BAS-CC-MC-AZL-S",
+    "sleeve": "Manga corta",
+    "color": "Azul",
+    "size": "S",
+    "fabric": "Manta hindú",
+    "img": "https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769279910/azul_5e94b280-3f0d-45c3-a239-22f781f5b616_y2hq5o.webp",
+    "price": "25.00",
+    "inventory": 12,
+    "low_stock_threshold": 3,
+    "active": true,
+    "updated_at": "2026-01-16T23:36:49.786Z",
+    "compare_at": "30.00"
+  }
+},
+{
+  "model": "orders.variant",
+  "pk": 32,
+  "fields": {
+    "product": 1,
+    "sku": "BAS-CC-MC-AZL-M",
+    "sleeve": "Manga corta",
+    "color": "Azul",
+    "size": "M",
+    "fabric": "Manta hindú",
+    "img": "https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769279910/azul_5e94b280-3f0d-45c3-a239-22f781f5b616_y2hq5o.webp",
+    "price": "25.00",
+    "inventory": 12,
+    "low_stock_threshold": 3,
+    "active": true,
+    "updated_at": "2026-01-16T23:36:49.789Z",
+    "compare_at": "30.00"
+  }
+},
+{
+  "model": "orders.variant",
+  "pk": 33,
+  "fields": {
+    "product": 1,
+    "sku": "BAS-CC-MC-AZL-L",
+    "sleeve": "Manga corta",
+    "color": "Azul",
+    "size": "L",
+    "fabric": "Manta hindú",
+    "img": "https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769279910/azul_5e94b280-3f0d-45c3-a239-22f781f5b616_y2hq5o.webp",
+    "price": "25.00",
+    "inventory": 12,
+    "low_stock_threshold": 3,
+    "active": true,
+    "updated_at": "2026-01-16T23:36:49.792Z",
+    "compare_at": "30.00"
+  }
+},
+{
+  "model": "orders.variant",
+  "pk": 34,
+  "fields": {
+    "product": 1,
+    "sku": "BAS-CC-MC-AZL-XL",
+    "sleeve": "Manga corta",
+    "color": "Azul",
+    "size": "XL",
+    "fabric": "Manta hindú",
+    "img": "https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769279910/azul_5e94b280-3f0d-45c3-a239-22f781f5b616_y2hq5o.webp",
+    "price": "25.00",
+    "inventory": 12,
+    "low_stock_threshold": 3,
+    "active": true,
+    "updated_at": "2026-01-16T23:36:49.794Z",
+    "compare_at": "30.00"
+  }
+},
+{
+  "model": "orders.variant",
+  "pk": 35,
+  "fields": {
+    "product": 1,
+    "sku": "BAS-CC-MC-AZL-XXL",
+    "sleeve": "Manga corta",
+    "color": "Azul",
+    "size": "XXL",
+    "fabric": "Manta hindú",
+    "img": "https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769279910/azul_5e94b280-3f0d-45c3-a239-22f781f5b616_y2hq5o.webp",
+    "price": "25.00",
+    "inventory": 12,
+    "low_stock_threshold": 3,
+    "active": true,
+    "updated_at": "2026-01-16T23:36:49.797Z",
+    "compare_at": "30.00"
+  }
+},
+{
+  "model": "orders.variant",
+  "pk": 36,
+  "fields": {
+    "product": 1,
+    "sku": "BAS-CC-MC-BLN-S",
+    "sleeve": "Manga corta",
+    "color": "Blanco",
+    "size": "S",
+    "fabric": "Manta hindú",
+    "img": "https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769279897/8_jfyhm1.png",
+    "price": "25.00",
+    "inventory": 12,
+    "low_stock_threshold": 3,
+    "active": true,
+    "updated_at": "2026-01-16T23:36:49.800Z",
+    "compare_at": "30.00"
+  }
+},
+{
+  "model": "orders.variant",
+  "pk": 37,
+  "fields": {
+    "product": 1,
+    "sku": "BAS-CC-MC-BLN-M",
+    "sleeve": "Manga corta",
+    "color": "Blanco",
+    "size": "M",
+    "fabric": "Manta hindú",
+    "img": "https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769279897/8_jfyhm1.png",
+    "price": "25.00",
+    "inventory": 12,
+    "low_stock_threshold": 3,
+    "active": true,
+    "updated_at": "2026-01-16T23:36:49.803Z",
+    "compare_at": "30.00"
+  }
+},
+{
+  "model": "orders.variant",
+  "pk": 38,
+  "fields": {
+    "product": 1,
+    "sku": "BAS-CC-MC-BLN-L",
+    "sleeve": "Manga corta",
+    "color": "Blanco",
+    "size": "L",
+    "fabric": "Manta hindú",
+    "img": "https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769279897/8_jfyhm1.png",
+    "price": "25.00",
+    "inventory": 12,
+    "low_stock_threshold": 3,
+    "active": true,
+    "updated_at": "2026-01-16T23:36:49.805Z",
+    "compare_at": "30.00"
+  }
+},
+{
+  "model": "orders.variant",
+  "pk": 39,
+  "fields": {
+    "product": 1,
+    "sku": "BAS-CC-MC-BLN-XL",
+    "sleeve": "Manga corta",
+    "color": "Blanco",
+    "size": "XL",
+    "fabric": "Manta hindú",
+    "img": "https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769279897/8_jfyhm1.png",
+    "price": "25.00",
+    "inventory": 12,
+    "low_stock_threshold": 3,
+    "active": true,
+    "updated_at": "2026-01-16T23:36:49.807Z",
+    "compare_at": "30.00"
+  }
+},
+{
+  "model": "orders.variant",
+  "pk": 40,
+  "fields": {
+    "product": 1,
+    "sku": "BAS-CC-MC-BLN-XXL",
+    "sleeve": "Manga corta",
+    "color": "Blanco",
+    "size": "XXL",
+    "fabric": "Manta hindú",
+    "img": "https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769279897/8_jfyhm1.png",
+    "price": "25.00",
+    "inventory": 12,
+    "low_stock_threshold": 3,
+    "active": true,
+    "updated_at": "2026-01-16T23:36:49.810Z",
+    "compare_at": "30.00"
+  }
+},
+{
+  "model": "orders.variant",
+  "pk": 41,
+  "fields": {
+    "product": 1,
+    "sku": "BAS-CC-MC-VMU-S",
+    "sleeve": "Manga corta",
+    "color": "Verde musgo",
+    "size": "S",
+    "fabric": "Manta hindú",
+    "img": "https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769279899/9_wk5pbh.png",
+    "price": "25.00",
+    "inventory": 12,
+    "low_stock_threshold": 3,
+    "active": true,
+    "updated_at": "2026-01-16T23:36:49.812Z",
+    "compare_at": "30.00"
+  }
+},
+{
+  "model": "orders.variant",
+  "pk": 42,
+  "fields": {
+    "product": 1,
+    "sku": "BAS-CC-MC-VMU-M",
+    "sleeve": "Manga corta",
+    "color": "Verde musgo",
+    "size": "M",
+    "fabric": "Manta hindú",
+    "img": "https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769279899/9_wk5pbh.png",
+    "price": "25.00",
+    "inventory": 12,
+    "low_stock_threshold": 3,
+    "active": true,
+    "updated_at": "2026-01-16T23:36:49.815Z",
+    "compare_at": "30.00"
+  }
+},
+{
+  "model": "orders.variant",
+  "pk": 43,
+  "fields": {
+    "product": 1,
+    "sku": "BAS-CC-MC-VMU-L",
+    "sleeve": "Manga corta",
+    "color": "Verde musgo",
+    "size": "L",
+    "fabric": "Manta hindú",
+    "img": "https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769279899/9_wk5pbh.png",
+    "price": "25.00",
+    "inventory": 12,
+    "low_stock_threshold": 3,
+    "active": true,
+    "updated_at": "2026-01-16T23:36:49.818Z",
+    "compare_at": "30.00"
+  }
+},
+{
+  "model": "orders.variant",
+  "pk": 44,
+  "fields": {
+    "product": 1,
+    "sku": "BAS-CC-MC-VMU-XL",
+    "sleeve": "Manga corta",
+    "color": "Verde musgo",
+    "size": "XL",
+    "fabric": "Manta hindú",
+    "img": "https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769279899/9_wk5pbh.png",
+    "price": "25.00",
+    "inventory": 12,
+    "low_stock_threshold": 3,
+    "active": true,
+    "updated_at": "2026-01-16T23:36:49.820Z",
+    "compare_at": "30.00"
+  }
+},
+{
+  "model": "orders.variant",
+  "pk": 45,
+  "fields": {
+    "product": 1,
+    "sku": "BAS-CC-MC-VMU-XXL",
+    "sleeve": "Manga corta",
+    "color": "Verde musgo",
+    "size": "XXL",
+    "fabric": "Manta hindú",
+    "img": "https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769279899/9_wk5pbh.png",
+    "price": "25.00",
+    "inventory": 12,
+    "low_stock_threshold": 3,
+    "active": true,
+    "updated_at": "2026-01-16T23:36:49.823Z",
+    "compare_at": "30.00"
+  }
+},
+{
+  "model": "orders.variant",
+  "pk": 46,
+  "fields": {
+    "product": 1,
+    "sku": "BAS-CC-MC-BEI-S",
+    "sleeve": "Manga corta",
+    "color": "Beige",
+    "size": "S",
+    "fabric": "Manta hindú",
+    "img": "https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769279919/beige_svh0sc.png",
+    "price": "25.00",
+    "inventory": 12,
+    "low_stock_threshold": 3,
+    "active": true,
+    "updated_at": "2026-01-16T23:36:49.826Z",
+    "compare_at": "30.00"
+  }
+},
+{
+  "model": "orders.variant",
+  "pk": 47,
+  "fields": {
+    "product": 1,
+    "sku": "BAS-CC-MC-BEI-M",
+    "sleeve": "Manga corta",
+    "color": "Beige",
+    "size": "M",
+    "fabric": "Manta hindú",
+    "img": "https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769279919/beige_svh0sc.png",
+    "price": "25.00",
+    "inventory": 12,
+    "low_stock_threshold": 3,
+    "active": true,
+    "updated_at": "2026-01-16T23:36:49.829Z",
+    "compare_at": "30.00"
+  }
+},
+{
+  "model": "orders.variant",
+  "pk": 48,
+  "fields": {
+    "product": 1,
+    "sku": "BAS-CC-MC-BEI-L",
+    "sleeve": "Manga corta",
+    "color": "Beige",
+    "size": "L",
+    "fabric": "Manta hindú",
+    "img": "https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769279919/beige_svh0sc.png",
+    "price": "25.00",
+    "inventory": 12,
+    "low_stock_threshold": 3,
+    "active": true,
+    "updated_at": "2026-01-16T23:36:49.831Z",
+    "compare_at": "30.00"
+  }
+},
+{
+  "model": "orders.variant",
+  "pk": 49,
+  "fields": {
+    "product": 1,
+    "sku": "BAS-CC-MC-BEI-XL",
+    "sleeve": "Manga corta",
+    "color": "Beige",
+    "size": "XL",
+    "fabric": "Manta hindú",
+    "img": "https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769279919/beige_svh0sc.png",
+    "price": "25.00",
+    "inventory": 12,
+    "low_stock_threshold": 3,
+    "active": true,
+    "updated_at": "2026-01-16T23:36:49.834Z",
+    "compare_at": "30.00"
+  }
+},
+{
+  "model": "orders.variant",
+  "pk": 50,
+  "fields": {
+    "product": 1,
+    "sku": "BAS-CC-MC-BEI-XXL",
+    "sleeve": "Manga corta",
+    "color": "Beige",
+    "size": "XXL",
+    "fabric": "Manta hindú",
+    "img": "https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769279919/beige_svh0sc.png",
+    "price": "25.00",
+    "inventory": 12,
+    "low_stock_threshold": 3,
+    "active": true,
+    "updated_at": "2026-01-16T23:36:49.837Z",
+    "compare_at": "30.00"
+  }
+}
+,
+{
+  "model": "orders.product",
+  "pk": 2,
+  "fields": {
+    "title": "Fear of the Dark — Camisa doble bolsillo",
+    "slug": "fear-of-the-dark-camisa-doble-bolsillo",
+    "description": "Camisa negra doble bolsillo, manga corta. Bordado negro sobre negro. Producción por lote.",
+    "active": true
+  }
+},
+{
+  "model": "orders.variant",
+  "pk": 51,
+  "fields": {
+    "product": 2,
+    "sku": "BAS-FOD-MC-NGR-S",
+    "sleeve": "Manga corta",
+    "color": "Negro",
+    "size": "S",
+    "fabric": "Manta hindú",
+    "img": "https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769363805/ChatGPT_Image_25_ene_2026_11_55_04_a.m._ajcj3e.png",
+    "price": "39.99",
+    "inventory": 12,
+    "low_stock_threshold": 3,
+    "active": true,
+    "updated_at": "2026-01-25T00:00:00.000Z",
+    "compare_at": "45.00"
+  }
+},
+{
+  "model": "orders.variant",
+  "pk": 52,
+  "fields": {
+    "product": 2,
+    "sku": "BAS-FOD-MC-NGR-M",
+    "sleeve": "Manga corta",
+    "color": "Negro",
+    "size": "M",
+    "fabric": "Manta hindú",
+    "img": "https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769363805/ChatGPT_Image_25_ene_2026_11_55_04_a.m._ajcj3e.png",
+    "price": "39.99",
+    "inventory": 12,
+    "low_stock_threshold": 3,
+    "active": true,
+    "updated_at": "2026-01-25T00:00:00.000Z",
+    "compare_at": "45.00"
+  }
+},
+{
+  "model": "orders.variant",
+  "pk": 53,
+  "fields": {
+    "product": 2,
+    "sku": "BAS-FOD-MC-NGR-L",
+    "sleeve": "Manga corta",
+    "color": "Negro",
+    "size": "L",
+    "fabric": "Manta hindú",
+    "img": "https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769363805/ChatGPT_Image_25_ene_2026_11_55_04_a.m._ajcj3e.png",
+    "price": "39.99",
+    "inventory": 12,
+    "low_stock_threshold": 3,
+    "active": true,
+    "updated_at": "2026-01-25T00:00:00.000Z",
+    "compare_at": "45.00"
+  }
+},
+{
+  "model": "orders.variant",
+  "pk": 54,
+  "fields": {
+    "product": 2,
+    "sku": "BAS-FOD-MC-NGR-XL",
+    "sleeve": "Manga corta",
+    "color": "Negro",
+    "size": "XL",
+    "fabric": "Manta hindú",
+    "img": "https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769363805/ChatGPT_Image_25_ene_2026_11_55_04_a.m._ajcj3e.png",
+    "price": "39.99",
+    "inventory": 12,
+    "low_stock_threshold": 3,
+    "active": true,
+    "updated_at": "2026-01-25T00:00:00.000Z",
+    "compare_at": "45.00"
+  }
+},
+{
+  "model": "orders.variant",
+  "pk": 55,
+  "fields": {
+    "product": 2,
+    "sku": "BAS-FOD-MC-NGR-XXL",
+    "sleeve": "Manga corta",
+    "color": "Negro",
+    "size": "XXL",
+    "fabric": "Manta hindú",
+    "img": "https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769363805/ChatGPT_Image_25_ene_2026_11_55_04_a.m._ajcj3e.png",
+    "price": "39.99",
+    "inventory": 12,
+    "low_stock_threshold": 3,
+    "active": true,
+    "updated_at": "2026-01-25T00:00:00.000Z",
+    "compare_at": "45.00"
+  }
+}
+
+
+]

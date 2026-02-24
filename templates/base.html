@@ -1,0 +1,450 @@
+{% load static %}
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="{% block meta_description %}BASALTO — Camisas cuello chino. Pre-order, drops limitados. Hecho en San Miguel, El Salvador.{% endblock %}" />
+  <title>{% block title %}BASALTO{% endblock %}</title>
+
+  <link rel="stylesheet" href="{% static 'css/main.css' %}">
+  {% block extra_head %}{% endblock %}
+</head>
+
+<body>
+  <!-- HEADER -->
+  <header>
+    <div class="wrap">
+      <div class="topbar">
+        <div class="brand">
+          <a href="/" class="logo" aria-label="BASALTO Home">BASALTO</a>
+        </div>
+  
+        <nav aria-label="Navegación principal">
+          <a href="/">Inicio</a>
+  
+          {# Si estás en home, usa anclas; si no, manda a /?#... #}
+          {% if request.path == "/" %}
+            <a href="#colecciones">Colecciones</a>
+            <a href="/nocturne/">Nocturne</a>
+            <a href="#contacto">Contacto</a>
+          {% else %}
+            <a href="/#colecciones">Colecciones</a>
+            <a href="/#contacto">Contacto</a>
+          {% endif %}
+        </nav>
+  
+        <div class="actions">
+          <a class="btn" href="/catalogo/">Ver catálogo</a>
+          <a class="btn primary" href="#" id="waReserveBtn">Reservar por WhatsApp</a>
+  
+          <a class="btn cart-btn" href="#" id="cartBtn" aria-label="Abrir carrito">
+            <span class="cart-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 8h12l-1 13H7L6 8Z"/>
+                <path d="M9 8a3 3 0 0 1 6 0"/>
+              </svg>
+            </span>
+            <span class="cart-badge" id="cartBadge" aria-label="0 items" style="display:none;">0</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+  
+
+  <main>
+    {% block content %}{% endblock %}
+
+    <!-- FOOTER -->
+    <footer id="contacto">
+        <div class="wrap">
+          <div class="footGrid">
+            <div>
+              <strong style="color:var(--ink);">BASALTO</strong>
+              <p class="fineprint" style="margin:10px 0 0;">
+                Camisas cuello chino en manta hindú.<br>
+                Hecho en San Miguel, El Salvador.<br>
+                Lujo silencioso para hijos del volcán.
+              </p>
+      
+              <div class="footLinks" style="margin-top:12px;">
+                <a href="/">Inicio</a>
+                <a href="/catalogo/">Catálogo</a>
+                {% if request.path == "/" %}
+                  <a href="#colecciones">Colecciones</a>
+                {% else %}
+                  <a href="/#colecciones">Colecciones</a>
+                {% endif %}
+              </div>
+            </div>
+      
+            <div>
+              <strong style="color:var(--ink);">Contacto</strong>
+      
+              <div class="footLinks">
+                <a href="https://wa.me/50378455804" target="_blank" rel="noopener">WhatsApp</a>
+                {% if request.path == "/" %}
+                  <a href="#contacto">Reservar / Pre-order</a>
+                {% else %}
+                  <a href="/#contacto">Reservar / Pre-order</a>
+                {% endif %}
+                <a href="mailto:info@basalto1530.com">Correo</a>
+              </div>
+      
+              <p class="fineprint" style="margin:10px 0 0;">
+                WhatsApp: <strong>+503 7845-5804</strong><br>
+                © <span id="y">2026</span> BASALTO.
+              </p>
+            </div>
+          </div>
+        </div>
+      </footer>
+      
+
+    <!-- Bottom nav -->
+    <div class="bottomnav" aria-label="Navegación inferior">
+        <div class="row">
+          {% if request.path == "/" %}
+            <a class="bn" href="#catalogo"><strong>Catálogo</strong><span>Hombre/Niño</span></a>
+            
+            <a class="bn" href="#contacto"><strong>Reservar</strong><span>Contacto</span></a>
+          {% else %}
+            <a class="bn" href="/#catalogo"><strong>Catálogo</strong><span>Hombre/Niño</span></a>
+            <a class="bn" href="/#contacto"><strong>Reservar</strong><span>Contacto</span></a>
+          {% endif %}
+        </div>
+      </div>
+      
+  </main>
+
+  <!-- MODAL PRODUCTO -->
+  <div class="modal" id="productModal" aria-hidden="true">
+    <div class="modal-backdrop" data-close-modal></div>
+
+    <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="pmTitle">
+      <button class="modal-close" type="button" aria-label="Cerrar" data-close-modal>×</button>
+
+      <div class="modal-grid">
+        <div class="modal-media">
+          <img id="pmImg" src="" alt="Producto BASALTO" />
+        </div>
+
+        <div class="modal-body">
+          <p class="modal-kicker" id="pmKicker">Manga</p>
+
+          <div class="modal-titleRow">
+            <h3 id="pmTitle">Producto</h3>
+            <div class="modal-price">
+              $<span id="pmPrice">0</span> <del>$<span id="pmCompare">0</span></del>
+            </div>
+          </div>
+
+          <div class="modal-meta">
+            <div>
+              <span class="mkey">Color</span>
+              <span class="mval" id="pmColor"></span>
+            </div>
+
+            <div>
+              <span class="mkey">Tela</span>
+              <span class="mval" id="pmFabric"></span>
+            </div>
+
+            <div>
+              <span class="mkey">Cuello</span>
+              <span class="mval">-</span>
+            </div>
+
+            <div>
+              <span class="mkey">Talla</span>
+              <select id="pmSize" class="select" aria-label="Seleccionar talla">
+                <option value="S">S</option>
+                <option value="M" selected>M</option>
+                <option value="L">L</option>
+                <option value="XL">XL</option>
+                <option value="XXL">XXL</option>
+              </select>
+              <div class="fineprint" style="margin-top:6px;">
+                Tallas S–XXL. Si estás entre tallas, te asesoramos.
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-qty">
+            <span class="mkey">Cantidad</span>
+            <div class="qty">
+              <button type="button" class="qty-btn" id="qtyMinus" aria-label="Disminuir">−</button>
+              <input type="number" id="pmQty" min="1" value="1" />
+              <button type="button" class="qty-btn" id="qtyPlus" aria-label="Aumentar">+</button>
+            </div>
+          </div>
+
+          <div class="modal-actions">
+            <button class="btn" type="button" id="addToCartBtn">Agregar al pedido</button>
+            <button class="btn" type="button" id="goCheckoutBtn" style="display:none;">Ir a checkout</button>
+            <button class="btn primary" type="button" id="buyNowBtn">Comprar ahora</button>
+          </div>
+
+          <p class="modal-note">
+            Pre-order por lote. Producción 10–15 días. Envío: San Salvador 3 días · departamentos 3–5 hábiles.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL CHECKOUT -->
+  <div class="modal" id="checkoutModal" aria-hidden="true">
+    <div class="modal-backdrop" data-close-checkout></div>
+
+    <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="checkoutTitle">
+      <button class="modal-close" type="button" aria-label="Cerrar" data-close-checkout>×</button>
+
+      <div class="checkout-body">
+        <h3 id="checkoutTitle">Checkout</h3>
+
+        <div class="notice">
+          <strong>Pre-order — producción por lote</strong>
+          <p>
+            Este pedido se confecciona especialmente para vos.<br>
+            Producción: <strong>10–15 días</strong>.<br>
+            Envío: <strong>San Salvador 3 días</strong> · <strong>departamentos 3–5 días hábiles</strong>.
+          </p>
+        </div>
+
+        <div class="order-summary" aria-label="Resumen del pedido">
+          <div class="sum-head">
+            <h4>Resumen</h4>
+            <span class="sum-sub">Pre-order · Manta hindú</span>
+          </div>
+
+          <div id="sumItems" class="sum-items"></div>
+
+          <div class="sum-totals">
+            <div class="sum-row">
+              <span>Subtotal</span>
+              <strong id="sumSubtotal">$0.00</strong>
+            </div>
+            <div class="sum-row">
+              <span>Envío (El Salvador)</span>
+              <strong id="sumShipping">$3.00</strong>
+            </div>
+            <div class="sum-row total">
+              <span>Total</span>
+              <strong id="sumTotal">$0.00</strong>
+            </div>
+
+            <p class="fineprint" style="margin:10px 0 0;">
+              Envío fijo nacional: <strong>$3</strong>. Producción por lote: <strong>10–15 días</strong>.
+            </p>
+          </div>
+        </div>
+
+        <div class="hr"></div>
+
+        <form id="checkoutForm" class="form">
+          <div class="form-grid">
+            <div class="field">
+              <label>País</label>
+              <input type="text" value="El Salvador" readonly>
+            </div>
+
+            <div class="field">
+              <label>Teléfono</label>
+              <input id="coPhone" type="tel" required placeholder="Ej: 7XXX-XXXX">
+            </div>
+
+            <div class="field">
+              <label>Nombre completo</label>
+              <input id="coName" type="text" required placeholder="Tu nombre y apellido">
+            </div>
+
+            <div class="field">
+              <label>Dirección</label>
+              <input id="coAddress1" type="text" required placeholder="Colonia, calle, # casa">
+            </div>
+
+            <div class="field form-span-2">
+              <label>Referencia (opcional)</label>
+              <input id="coAddress2" type="text" placeholder="Ej: frente a…, casa color…">
+            </div>
+          </div>
+
+          <div class="two">
+            <div class="field">
+              <label>Departamento</label>
+              <input id="coDept" type="text" placeholder="San Salvador">
+            </div>
+
+            <div class="field">
+              <label>Municipio / Ciudad</label>
+              <input id="coCity" type="text" placeholder="San Salvador">
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Nota (opcional)</label>
+            <input id="coNotes" type="text" placeholder="Horario, indicaciones, etc.">
+          </div>
+
+          <div class="hr"></div>
+
+          <div class="field">
+            <label>Método de pago</label>
+
+            <div class="pay-grid">
+              <label class="pay-option">
+                <input type="radio" name="pay_method" value="card" checked>
+                <div>
+                  <strong>Tarjeta</strong>
+                  <span class="fineprint">Pago con Wompi (link automático)</span>
+                </div>
+              </label>
+
+              <label class="pay-option">
+                <input type="radio" name="pay_method" value="transfer">
+                <div>
+                  <strong>Transferencia</strong>
+                  <span class="fineprint">Te mostramos los datos y confirmás por WhatsApp</span>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <div id="transferBox" class="notice" style="display:none;">
+            <strong>Transferencia bancaria</strong>
+            <p style="margin:8px 0 0;">
+              Banco: <strong>BANCO AGRICOLA</strong><br>
+              Cuenta: <strong>3550507559</strong><br>
+              A nombre de: <strong>Wilder Díaz</strong><br>
+              Referencia: <strong id="transferRefHint">Tu número de orden</strong>
+            </p>
+            <p class="fineprint">
+              Al enviar el comprobante por WhatsApp, confirmamos tu pre-order.
+            </p>
+          </div>
+
+          <div class="checkout-actions">
+            <button type="button" class="btn" data-close-checkout>Volver</button>
+            <button type="submit" class="btn primary" id="confirmOrderBtn">Confirmar y enviar</button>
+          </div>
+
+          <p class="fineprint">
+            Al confirmar, generamos tu orden.
+            Si elegís tarjeta, también recibirás el link de pago.
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- CART DRAWER -->
+  <div class="drawer" id="cartDrawer" aria-hidden="true">
+    <div class="drawer-backdrop" data-close-drawer></div>
+
+    <aside class="drawer-panel" role="dialog" aria-modal="true" aria-labelledby="drawerTitle">
+      <div class="drawer-head">
+        <div>
+          <p class="drawer-kicker">BASALTO</p>
+          <h3 id="drawerTitle" class="drawer-title">Carrito</h3>
+        </div>
+
+        <button class="drawer-close" type="button" aria-label="Cerrar" data-close-drawer>×</button>
+      </div>
+
+      <div class="drawer-body">
+        <div id="drawerItems" class="drawer-items"></div>
+
+        <div id="drawerEmpty" class="drawer-empty" style="display:none;">
+          Tu carrito está vacío. Elegí una pieza y presioná “Agregar al pedido”.
+        </div>
+      </div>
+
+      <div class="drawer-foot">
+        <div class="drawer-totals">
+          <div class="drow">
+            <span>Subtotal</span>
+            <strong id="drawerSubtotal">$0.00</strong>
+          </div>
+          <div class="drow">
+            <span>Envío (El Salvador)</span>
+            <strong id="drawerShipping">$3.00</strong>
+          </div>
+          <div class="drow total">
+            <span>Total</span>
+            <strong id="drawerTotal">$0.00</strong>
+          </div>
+
+          <p class="fineprint" style="margin:10px 0 0;">
+            Envío fijo nacional: <strong>$3</strong>. Producción por lote: <strong>10–15 días</strong>.
+          </p>
+        </div>
+
+        <div class="drawer-actions">
+          <button class="btn" type="button" id="drawerContinue" data-close-drawer>Seguir comprando</button>
+          <button class="btn primary" type="button" id="drawerCheckout">Ir a checkout</button>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- JS -->
+  <script src="{% static 'js/main.js' %}"></script>
+  <script>
+    const y = document.getElementById("y");
+    if (y) y.textContent = new Date().getFullYear();
+  </script>
+
+  {% block extra_scripts %}{% endblock %}
+  <script>
+    (function () {
+      const WA_NUMBER = "50378455804";
+  
+      function buildReserveMessage(cart) {
+        const lines = [];
+        lines.push("Hola BASALTO, quiero reservar un pre-order.");
+        if (Array.isArray(cart) && cart.length) {
+          lines.push("");
+          lines.push("Pedido:");
+          cart.forEach((it) => {
+            const title = (it.title || "Camisa cuello chino").trim();
+            const sleeve = (it.sleeve || "").trim();
+            const color = (it.color || "").trim();
+            const size = (it.size || "M").toUpperCase();
+            const qty = Number(it.qty || 1);
+            const sku = (it.sku || "").trim();
+            lines.push(`- ${title} · ${sleeve} · ${color} · Talla ${size} · x${qty}${sku ? " · SKU " + sku : ""}`);
+          });
+        } else {
+          lines.push("");
+          lines.push("Aún no he elegido productos. ¿Me ayudan a elegir talla y color?");
+        }
+        lines.push("");
+        lines.push("Nombre:");
+        lines.push("Teléfono:");
+        lines.push("Dirección:");
+        return lines.join("\n");
+      }
+  
+      function openWA(text) {
+        const url = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(text)}`;
+        window.open(url, "_blank");
+      }
+  
+      document.addEventListener("click", (e) => {
+        const btn = e.target.closest("#waReserveBtn");
+        if (!btn) return;
+  
+        e.preventDefault();
+  
+        // Tu JS expone el carrito como window.BASALTO_CART
+        const cart = window.BASALTO_CART || [];
+        const msg = buildReserveMessage(cart);
+        openWA(msg);
+      });
+    })();
+  </script>
+  
+</body>
+</html>

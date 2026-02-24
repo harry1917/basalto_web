@@ -1,0 +1,170 @@
+{% load static %}
+
+<section id="catalogo" class="tabs">
+  <div class="wrap">
+
+    <div class="section-head">
+      <div>
+        <h2>Catálogo</h2>
+        <p>Camisas cuello chino en manta hindú. Ediciones por lote, pensadas para un guardarropa atemporal.</p>
+      </div>
+      <div class="section-actions">
+        <span class="pill"><span class="icon-dot"></span> Edición activa</span>
+        {% if request.path == "/" %}
+          <a class="btn primary" href="#contacto">Reservar</a>
+        {% else %}
+          <a class="btn primary" href="/#contacto">Reservar</a>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- TOPBAR DE FILTROS -->
+    <div class="filterbar" aria-label="Filtros de catálogo">
+      <div class="filter-left">
+        <div class="filter-group">
+          <span class="filter-label">Manga</span>
+          <button class="fbtn is-active" type="button" data-filter="sleeve" data-value="all">Todas</button>
+          <button class="fbtn" type="button" data-filter="sleeve" data-value="Manga larga">Larga</button>
+          <button class="fbtn" type="button" data-filter="sleeve" data-value="Manga corta">Corta</button>
+        </div>
+
+        <div class="filter-group">
+          <span class="filter-label">Color</span>
+          <button class="fbtn is-active" type="button" data-filter="color" data-value="all">Todos</button>
+          <button class="fbtn" type="button" data-filter="color" data-value="Negro">Negro</button>
+          <button class="fbtn" type="button" data-filter="color" data-value="Azul">Azul</button>
+          <button class="fbtn" type="button" data-filter="color" data-value="Blanco">Blanco</button>
+          <button class="fbtn" type="button" data-filter="color" data-value="Verde musgo">Verde musgo</button>
+          <button class="fbtn" type="button" data-filter="color" data-value="Beige">Beige</button>
+        </div>
+      </div>
+
+      <div class="filter-right">
+        <div class="searchwrap">
+          <input id="filterSearch" class="search" type="search" placeholder="Buscar (ej: cuello chino, azul…)" aria-label="Buscar en catálogo">
+          <button class="searchclear" type="button" id="filterClear" aria-label="Limpiar filtros">Limpiar</button>
+        </div>
+
+        <div class="resultsbar" aria-live="polite">
+          <span id="resultsText">Mostrando 0</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tabs Hombre / Niño / Mujer -->
+    <input type="radio" id="tab-men" name="tabs2" checked>
+    <input type="radio" id="tab-kids" name="tabs2">
+    <input type="radio" id="tab-women" name="tabs2">
+
+    <div class="tabbar" role="tablist" aria-label="Hombre / Niño / Mujer">
+      <label for="tab-men" role="tab" aria-controls="panel-men">Hombre</label>
+      <label for="tab-kids" role="tab" aria-controls="panel-kids">Niño</label>
+      <label for="tab-women" role="tab" aria-controls="panel-women">Mujer</label>
+    </div>
+
+    <div class="panels">
+
+      <!-- HOMBRE -->
+      <div class="tabpanel" id="panel-men" role="tabpanel" aria-label="Catálogo Hombre">
+
+        {# 🔧 DEBUG (borrar cuando ya esté) #}
+        {# <p class="fineprint">DEBUG: men_cards={{ men_cards|length }}</p> #}
+
+        <div class="grid" id="catalogGrid-men">
+          {% for card in men_cards %}
+          <article class="card" data-sleeve="{{ card.sleeve }}" data-color="{{ card.color }}">
+            <div class="thumb" style="--img:url('{{ card.img }}');"></div>
+          
+            <div class="meta">
+              <span class="kicker">{{ card.sleeve }}</span>
+          
+              <div class="titleRow">
+                <h4>{{ card.title }}</h4>
+                <div class="price">
+                  ${{ card.price }}
+                  {% if card.compare and card.compare > 0 %}
+                    <del>${{ card.compare }}</del>
+                  {% endif %}
+                </div>
+              </div>
+          
+              <p class="colorline">{{ card.color }}</p>
+          
+              <div class="cta">
+                <a class="cardlink js-open-modal" href="#"
+                   data-img="{{ card.img }}"
+                   data-title="{{ card.title }}"
+                   data-sleeve="{{ card.sleeve }}"
+                   data-color="{{ card.color }}"
+                   data-price="{{ card.price }}"
+                   data-compare="{{ card.compare }}"
+                   data-fabric="{{ card.fabric }}"
+                   data-sizes="S, M, L, XL, XXL"
+                   data-sku-map='{"S":"{{ card.sku_map.S|default:"" }}","M":"{{ card.sku_map.M|default:"" }}","L":"{{ card.sku_map.L|default:"" }}","XL":"{{ card.sku_map.XL|default:"" }}","XXL":"{{ card.sku_map.XXL|default:"" }}"}'
+                >Ver detalles</a>
+              </div>
+            </div>
+          </article>
+          
+          {% empty %}
+            <p class="fineprint">Aún no hay piezas publicadas. Volvé pronto o escribinos para asesoría.</p>
+          {% endfor %}
+        </div>
+
+        <div class="hr"></div>
+        <p class="fineprint">
+          * Manta hindú · Cuello chino · Confección por lote. Si estás entre tallas, te ayudamos a elegir.
+        </p>
+        <p class="fineprint" style="margin-top:8px;">
+          Producción: <strong>10–15 días</strong> · Envío nacional: <strong>$3</strong>.
+        </p>
+      </div>
+
+      <!-- NIÑO -->
+      <div class="tabpanel" id="panel-kids" role="tabpanel" aria-label="Catálogo Niño">
+        <div class="grid" id="catalogGrid-kids"></div>
+
+        <div class="soon">
+          <div class="soon-card" role="status" aria-live="polite">
+            <p class="soon-kicker">Próximamente</p>
+            <h3>Colección Niño</h3>
+            <p>La misma confección, en una escala nueva. Sumate a la lista y te avisamos cuando abra el próximo drop.</p>
+            <div class="soon-actions">
+              {% if request.path == "/" %}
+                <a class="btn primary" href="#contacto">Entrar a lista</a>
+                <a class="btn" href="#contacto">Pedir asesoría</a>
+              {% else %}
+                <a class="btn primary" href="/#contacto">Entrar a lista</a>
+                <a class="btn" href="/#contacto">Pedir asesoría</a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MUJER -->
+      <div class="tabpanel" id="panel-women" role="tabpanel" aria-label="Catálogo Mujer">
+        <div class="grid" id="catalogGrid-women"></div>
+
+        <div class="soon">
+          <div class="soon-card" role="status" aria-live="polite">
+            <p class="soon-kicker">Próximamente</p>
+            <h3>Colección Mujer</h3>
+            <p>Textura honesta, caída precisa. Un drop pensado para durar, sin ruido.</p>
+            <div class="soon-actions">
+              {% if request.path == "/" %}
+                <a class="btn primary" href="#contacto">Entrar a lista</a>
+                <a class="btn" href="#contacto">Pedir asesoría</a>
+              {% else %}
+                <a class="btn primary" href="/#contacto">Entrar a lista</a>
+                <a class="btn" href="/#contacto">Pedir asesoría</a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /panels -->
+
+  </div>
+</section>

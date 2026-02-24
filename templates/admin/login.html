@@ -1,0 +1,167 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block extrastyle %}
+<style>
+  :root{
+    --bg:#f6f2ea;
+    --paper:#ffffff;
+    --ink:#1b1b1b;
+    --muted:#6f6a5f;
+    --line:#e2d8c7;
+    --accent:#4f5b3a; /* olive */
+    --radius:18px;
+    --shadow:0 18px 40px rgba(0,0,0,.08);
+  }
+
+  body.login{
+    background:
+      radial-gradient(1200px 600px at 20% -10%, #fff1d6 0%, rgba(255,241,214,0) 60%),
+      radial-gradient(900px 500px at 100% 0%, #efebe2 0%, rgba(239,235,226,0) 55%),
+      var(--bg);
+    font-family: ui-serif, Georgia, "Times New Roman", serif;
+  }
+
+  #container{
+    background:transparent;
+  }
+
+  #content{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-height:100vh;
+    padding:24px;
+  }
+
+  .login #content-main{
+    background:var(--paper);
+    border-radius:var(--radius);
+    border:1px solid var(--line);
+    box-shadow:var(--shadow);
+    padding:36px 34px;
+    width:100%;
+    max-width:420px;
+  }
+
+  .login h1{
+    text-align:center;
+    font-size:28px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    margin-bottom:6px;
+  }
+
+  .login .subtitle{
+    text-align:center;
+    font-family: ui-sans-serif, system-ui;
+    color:var(--muted);
+    font-size:13px;
+    margin-bottom:28px;
+  }
+
+  .login form{
+    margin-top:0;
+  }
+
+  .login .form-row{
+    margin-bottom:18px;
+  }
+
+  .login label{
+    font-family: ui-sans-serif, system-ui;
+    font-size:12px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--muted);
+  }
+
+  .login input[type="text"],
+  .login input[type="password"]{
+    width:100%;
+    padding:12px 14px;
+    border-radius:14px;
+    border:1px solid var(--line);
+    background:#fff;
+    font-family: ui-sans-serif, system-ui;
+  }
+
+  .login input:focus{
+    outline:none;
+    border-color:#cdbb9e;
+    box-shadow:0 0 0 4px rgba(201,183,156,.25);
+  }
+
+  .login .submit-row{
+    margin-top:26px;
+  }
+
+  .login .submit-row input{
+    width:100%;
+    padding:12px 14px;
+    border-radius:999px;
+    border:none;
+    background:var(--ink);
+    color:#fff;
+    font-family: ui-sans-serif, system-ui;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    cursor:pointer;
+  }
+
+  .login .submit-row input:hover{
+    opacity:.9;
+  }
+
+  .login .password-reset-link{
+    text-align:center;
+    margin-top:16px;
+    font-size:12px;
+  }
+
+  .login .password-reset-link a{
+    color:var(--muted);
+    text-decoration:none;
+  }
+
+  .login .password-reset-link a:hover{
+    text-decoration:underline;
+  }
+
+  /* Ocultar branding default */
+  #header, #branding{
+    display:none;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+  <div id="content-main">
+    <h1>BASALTO</h1>
+    <div class="subtitle">Administración privada</div>
+
+    {{ form.errors }}
+
+    <form action="{{ app_path }}" method="post" id="login-form">
+      {% csrf_token %}
+      <div class="form-row">
+        {{ form.username.label_tag }}
+        {{ form.username }}
+      </div>
+      <div class="form-row">
+        {{ form.password.label_tag }}
+        {{ form.password }}
+      </div>
+
+      <div class="submit-row">
+        <input type="submit" value="{% translate 'Log in' %}">
+      </div>
+    </form>
+
+    {% if form.password_reset_url %}
+      <div class="password-reset-link">
+        <a href="{{ form.password_reset_url }}">{% translate 'Forgotten your password or username?' %}</a>
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}

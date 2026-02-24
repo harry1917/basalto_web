@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}BASALTO | Confirmación{% endblock %}
+
+{% block content %}
+<section style="padding:44px 0;">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <h2>Gracias</h2>
+        <p>Hemos recibido tu regreso desde la pasarela de pago.</p>
+      </div>
+    </div>
+
+    <div class="panel" style="padding:18px;">
+      {% if order %}
+        <p class="fineprint" style="margin:0 0 10px;">
+          Orden: <strong>{{ order.order_number }}</strong>
+        </p>
+      {% endif %}
+
+      {% if redirect_ok %}
+        <p style="margin:0 0 10px;">
+          Pago recibido. Estamos confirmando la transacción.
+        </p>
+      {% else %}
+        <p style="margin:0 0 10px;">
+          Estamos verificando tu pago. Si ya pagaste, se confirmará automáticamente en unos momentos.
+        </p>
+      {% endif %}
+
+      {% if idTransaccion %}
+        <p class="fineprint" style="margin:0;">
+          Referencia Wompi: <strong>{{ idTransaccion }}</strong>
+        </p>
+      {% endif %}
+
+      <div class="hr"></div>
+
+      <div class="section-actions">
+        <a class="btn primary" href="/catalogo/">Volver al catálogo</a>
+        <a class="btn" href="/" >Ir a inicio</a>
+      </div>
+    </div>
+  </div>
+</section>
+{% if order %}
+  <div class="hr"></div>
+
+  <p class="fineprint" style="margin:0 0 10px;">
+    ¿Necesitás ayuda o querés confirmar tu pago por WhatsApp?
+  </p>
+
+  <a class="btn" target="_blank"
+     href="https://wa.me/50378455804?text=Hola%20BASALTO%2C%20acabo%20de%20realizar%20el%20pago%20de%20la%20orden%20{{ order.order_number }}.%20%C2%BFPueden%20confirmarme%2C%20por%20favor%3F">
+    Enviar confirmación por WhatsApp
+  </a>
+{% endif %}
+{% endblock %}

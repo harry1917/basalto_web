@@ -1,0 +1,55 @@
+{% extends "dashboard/base_dashboard.html" %}
+{% block title %}Basalto · Inventario{% endblock %}
+{% block page_title %}Inventario{% endblock %}
+{% block page_sub %}Stock por variante (SKU){% endblock %}
+
+{% block content %}
+<div class="card" style="margin-top:14px;">
+  <div class="card-h">
+    <div>
+      <h2>Variantes</h2>
+      <p>Buscar por SKU, producto, talla, color</p>
+    </div>
+    <form method="get" class="filters">
+      <input class="input" name="q" value="{{ q }}" placeholder="Buscar…" style="min-width:260px;">
+      <label class="pill" style="cursor:pointer;">
+        <input type="checkbox" name="low" value="1" {% if low == "1" %}checked{% endif %} style="margin-right:8px;">
+        Low stock
+      </label>
+      <button class="btn" type="submit">Aplicar</button>
+      <a class="btn" href="{% url 'orders:dashboard_inventory' %}">Limpiar</a>
+    </form>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>SKU</th>
+        <th>Producto</th>
+        <th>Variante</th>
+        <th>Precio</th>
+        <th>Stock</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for v in variants %}
+      <tr>
+        <td class="mono"><b>{{ v.sku }}</b></td>
+        <td><b>{{ v.product.title }}</b></td>
+        <td class="muted">Manga: {{ v.sleeve }} · {{ v.color }} · {{ v.size }} · {{ v.fabric }}</td>
+        <td class="mono">${{ v.price }}</td>
+        <td class="mono">
+          <b {% if v.is_low_stock %}style="color:#8b4b2b"{% endif %}>{{ v.inventory }}</b>
+        </td>
+        <td>
+          <a class="link" href="{% url 'orders:dashboard_variant_detail' v.id %}">Ver</a>
+        </td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="6" class="muted" style="padding:18px;">Sin variantes.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

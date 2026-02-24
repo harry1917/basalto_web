@@ -1,0 +1,113 @@
+{% extends "dashboard/base_dashboard.html" %}
+{% block title %}Basalto · Órdenes{% endblock %}
+{% block page_title %}Órdenes{% endblock %}
+{% block page_sub %}Filtra, busca y cambia estados sin fricción{% endblock %}
+
+{% block content %}
+
+  <!-- Stats -->
+  <div class="stats">
+    <div class="stat"><div class="k">Pendientes</div><div class="v mono">{{ stats.pending }}</div></div>
+    <div class="stat"><div class="k">Pagadas</div><div class="v mono">{{ stats.paid }}</div></div>
+    <div class="stat"><div class="k">En proceso</div><div class="v mono">{{ stats.processing }}</div></div>
+    <div class="stat"><div class="k">Enviadas</div><div class="v mono">{{ stats.shipped }}</div></div>
+    <div class="stat"><div class="k">Entregadas</div><div class="v mono">{{ stats.delivered }}</div></div>
+    <div class="stat"><div class="k">Canceladas</div><div class="v mono">{{ stats.cancelled }}</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-h">
+      <div>
+        <h2>Listado</h2>
+        <p>Buscar por #orden, nombre, teléfono, ciudad o departamento</p>
+      </div>
+
+      <form method="get" class="filters">
+        <input class="input" name="q" value="{{ q }}" placeholder="Buscar…" style="min-width:260px;">
+        <select name="status">
+          <option value="">Todos</option>
+          {% for key,label in STATUS_CHOICES %}
+            <option value="{{ key }}" {% if status == key %}selected{% endif %}>{{ label }}</option>
+          {% endfor %}
+        </select>
+        <button class="btn" type="submit">Aplicar</button>
+        <a class="btn" href="{% url 'orders:dashboard_orders' %}">Limpiar</a>
+      </form>
+    </div>
+
+    <!-- Pills rápidas -->
+    <div style="padding:12px 16px; border-bottom:1px solid var(--line);">
+      <div class="pills">
+        <a class="pill {% if not status %}active{% endif %}" href="?q={{ q }}">Todos</a>
+        <a class="pill {% if status == 'pending' %}active{% endif %}" href="?status=pending&q={{ q }}">Pendiente</a>
+        <a class="pill {% if status == 'paid' %}active{% endif %}" href="?status=paid&q={{ q }}">Pagada</a>
+        <a class="pill {% if status == 'processing' %}active{% endif %}" href="?status=processing&q={{ q }}">En proceso</a>
+        <a class="pill {% if status == 'shipped' %}active{% endif %}" href="?status=shipped&q={{ q }}">Enviada</a>
+        <a class="pill {% if status == 'delivered' %}active{% endif %}" href="?status=delivered&q={{ q }}">Entregada</a>
+        <a class="pill {% if status == 'cancelled' %}active{% endif %}" href="?status=cancelled&q={{ q }}">Cancelada</a>
+      </div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th># Orden</th>
+          <th>Cliente</th>
+          <th>Ubicación</th>
+          <th>Total</th>
+          <th>Pago</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for o in page_obj.object_list %}
+        <tr>
+          <td class="mono"><b>{{ o.order_number }}</b><div class="muted" style="font-size:12px;margin-top:4px;">{{ o.created_at|date:"Y-m-d H:i" }}</div></td>
+          <td>
+            <b>{{ o.full_name }}</b>
+            <div class="muted" style="font-size:12px;margin-top:4px;">{{ o.phone }}</div>
+          </td>
+          <td class="muted">
+            {{ o.department|default:"—" }}{% if o.city %}, {{ o.city }}{% endif %}
+          </td>
+          <td class="mono"><b>${{ o.total }}</b><div class="muted" style="font-size:12px;margin-top:4px;">Sub: ${{ o.subtotal }} · Env: ${{ o.shipping }}</div></td>
+          <td class="muted">{{ o.get_payment_method_display }}</td>
+          <td><b>{{ o.get_status_display }}</b></td>
+          <td>
+            <div class="row-actions">
+              <a class="link" href="{% url 'orders:dashboard_order_detail' o.id %}">Ver</a>
+
+              <!-- Cambio rápido de estado -->
+              <form method="post" action="{% url 'orders:dashboard_order_quick_status' o.id %}" style="display:flex;gap:8px;align-items:center;">
+                {% csrf_token %}
+                <select class="select-mini" name="status">
+                  {% for key,label in STATUS_CHOICES %}
+                    <option value="{{ key }}" {% if o.status == key %}selected{% endif %}>{{ label }}</option>
+                  {% endfor %}
+                </select>
+                <button class="ok-mini" type="submit">OK</button>
+              </form>
+            </div>
+          </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="7" class="muted" style="padding:18px;">Sin resultados.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <div class="pager">
+      <div class="muted">Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</div>
+      <div class="row-actions">
+        {% if page_obj.has_previous %}
+          <a class="link" href="?q={{ q }}&status={{ status }}&page={{ page_obj.previous_page_number }}">←</a>
+        {% endif %}
+        {% if page_obj.has_next %}
+          <a class="link" href="?q={{ q }}&status={{ status }}&page={{ page_obj.next_page_number }}">→</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
