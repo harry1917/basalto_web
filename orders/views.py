@@ -35,9 +35,16 @@ def build_men_cards():
     Construye cards (agrupadas) desde Variant:
     - agrupa por producto + sleeve + color + img + price + compare_at
     - genera sku_map por talla
+    - detecta kind: shirt vs accessory (cap/bag)
     """
     variants = Variant.objects.filter(active=True, inventory__gt=0).select_related("product")
 
+    def norm(s):
+        return (str(s or "").strip()).upper()
+
+    def is_one_size(sz: str) -> bool:
+        s = norm(sz)
+        return s in {"UNI", "UNICA", "ÚNICA", "ONE", "ONE SIZE", "OS", "U"}
 
     groups = {}
     for v in variants:
@@ -46,17 +53,37 @@ def build_men_cards():
 
     cards = []
     for (_, sleeve, color, img, _, _), group in groups.items():
-        sku_map = {g.size: g.sku for g in group}
+        # sku_map solo con los que tienen sku real
+        sku_map = {}
+        for g in group:
+            k = str(g.size or "").strip()
+            sku_map[k] = g.sku
+
+        sizes_present = [str(g.size or "").strip() for g in group if str(g.sku or "").strip()]
+        sizes_norm = [norm(s) for s in sizes_present if s]
+
+        # Detectar si es "accesorio"
+        # - si hay talla única, o
+        # - si solo hay 1 talla disponible
+        is_accessory = any(is_one_size(s) for s in sizes_norm) or (len(set(sizes_norm)) <= 1)
+
+        # kind (por ahora: shirt vs accessory)
+        kind = "accessory" if is_accessory else "shirt"
+
         cards.append({
             "title": group[0].product.title if group and group[0].product else "Producto",
-            "sleeve": sleeve,
+            "sleeve": sleeve if not is_accessory else "Accesorio",
             "color": color,
             "fabric": group[0].fabric if group else "",
             "img": img,
             "price": group[0].price if group else 0,
             "compare": group[0].compare_at if group else 0,
-            "sizes": SIZES,
+            "kind": kind,
             "sku_map": sku_map,
+            # para shirts mantenemos las tallas estándar, para accesorios dejamos vacío
+            "sizes": SIZES if not is_accessory else [],
+            # json listo para meter en data-sku-map
+            "sku_map_json": json.dumps(sku_map),
         })
 
     def order_key(c):

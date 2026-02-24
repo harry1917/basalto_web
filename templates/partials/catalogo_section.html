@@ -92,16 +92,18 @@
           
               <div class="cta">
                 <a class="cardlink js-open-modal" href="#"
-                   data-img="{{ card.img }}"
-                   data-title="{{ card.title }}"
-                   data-sleeve="{{ card.sleeve }}"
-                   data-color="{{ card.color }}"
-                   data-price="{{ card.price }}"
-                   data-compare="{{ card.compare }}"
-                   data-fabric="{{ card.fabric }}"
-                   data-sizes="S, M, L, XL, XXL"
-                   data-sku-map='{"S":"{{ card.sku_map.S|default:"" }}","M":"{{ card.sku_map.M|default:"" }}","L":"{{ card.sku_map.L|default:"" }}","XL":"{{ card.sku_map.XL|default:"" }}","XXL":"{{ card.sku_map.XXL|default:"" }}"}'
-                >Ver detalles</a>
+   data-img="{{ card.img }}"
+   data-title="{{ card.title }}"
+   data-sleeve="{{ card.sleeve }}"
+   data-color="{{ card.color }}"
+   data-price="{{ card.price }}"
+   data-compare="{{ card.compare }}"
+   data-fabric="{{ card.fabric }}"
+   data-kind="{{ card.kind }}"
+   data-sku-map='{{ card.sku_map_json|escape }}'
+>Ver detalles</a>
+
+
               </div>
             </div>
           </article>
