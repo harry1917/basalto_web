@@ -59,7 +59,6 @@
       "active": true
     }
   },
-
   {
     "model": "orders.variant",
     "pk": 200,
@@ -70,7 +69,7 @@
       "color": "Negro",
       "size": "UNI",
       "fabric": "Algodón estructurado",
-      "img": "https://TU_URL_GORRA_FOD_NEGRA_EDDIE_BORDADO_GRIS.webp",
+      "img": "https://basalto1530.com/static/images/catalogo/BAS-FOD-CAP-BLK-EDDIE-GRY-UNI.webp",
       "price": "25.00",
       "inventory": 50,
       "low_stock_threshold": 10,
@@ -89,7 +88,7 @@
       "color": "Camuflaje",
       "size": "UNI",
       "fabric": "Algodón estructurado",
-      "img": "https://TU_URL_GORRA_FOD_CAMU_EDDIE_BORDADO_GRIS.webp",
+      "img": "https://basalto1530.com/static/images/catalogo/BAS-FOD-CAP-CAMO-EDDIE-GRY-UNI.webp",
       "price": "25.00",
       "inventory": 50,
       "low_stock_threshold": 10,
@@ -108,7 +107,7 @@
       "color": "Negro",
       "size": "UNI",
       "fabric": "Algodón estructurado",
-      "img": "https://TU_URL_GORRA_HDV_NEGRA_BORDADO_GRIS.webp",
+      "img": "https://basalto1530.com/static/images/catalogo/BAS-HDV-CAP-BLK-HDV-GRY-UNI.webp",
       "price": "25.00",
       "inventory": 50,
       "low_stock_threshold": 10,
@@ -127,7 +126,7 @@
       "color": "Negro",
       "size": "UNI",
       "fabric": "Algodón estructurado",
-      "img": "https://TU_URL_GORRA_HDV_NEGRA_3D_NEGRO.webp",
+      "img": "https://basalto1530.com/static/images/catalogo/BAS-HDV-CAP-BLK-HDV-3D-BLK-UNI.webp",
       "price": "25.00",
       "inventory": 50,
       "low_stock_threshold": 10,
@@ -146,7 +145,7 @@
       "color": "Negro",
       "size": "UNI",
       "fabric": "Algodón estructurado",
-      "img": "https://TU_URL_GORRA_FOD_NEGRA_EDDIE_3D_NEGRO.webp",
+      "img": "https://basalto1530.com/static/images/catalogo/BAS-FOD-CAP-BLK-EDDIE-3D-BLK-UNI.webp",
       "price": "30.00",
       "inventory": 50,
       "low_stock_threshold": 10,
@@ -165,7 +164,7 @@
       "color": "Beige",
       "size": "UNI",
       "fabric": "Lona / textil",
-      "img": "https://TU_URL_BOLSO_HDV_BEIGE.webp",
+      "img": "https://basalto1530.com/static/images/catalogo/BAS-HDV-BAG-BEI-UNI.webp",
       "price": "35.00",
       "inventory": 30,
       "low_stock_threshold": 5,
@@ -175,3 +174,6 @@
     }
   }
 ]
+
+
+
