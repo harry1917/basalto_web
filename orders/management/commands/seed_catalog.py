@@ -18,18 +18,18 @@ class Command(BaseCommand):
 
         cards = [
             # Manga larga $30 / $35
-            {"img":"images/catalogo/1.png", "sleeve":"Manga larga", "sl":"ML", "color":"Negro",       "cc":"NGR", "price":"30", "compare":"35"},
-            {"img":"images/catalogo/2.png", "sleeve":"Manga larga", "sl":"ML", "color":"Azul",        "cc":"AZL", "price":"30", "compare":"35"},
-            {"img":"images/catalogo/3.png", "sleeve":"Manga larga", "sl":"ML", "color":"Blanco",      "cc":"BLN", "price":"30", "compare":"35"},
-            {"img":"images/catalogo/4.png", "sleeve":"Manga larga", "sl":"ML", "color":"Verde musgo", "cc":"VMU", "price":"30", "compare":"35"},
-            {"img":"images/catalogo/5.png", "sleeve":"Manga larga", "sl":"ML", "color":"Beige",       "cc":"BEI", "price":"30", "compare":"35"},
+            {"img":"images/catalogo/1.webp", "sleeve":"Manga larga", "sl":"ML", "color":"Negro",       "cc":"NGR", "price":"30", "compare":"35"},
+            {"img":"images/catalogo/2.webp", "sleeve":"Manga larga", "sl":"ML", "color":"Azul",        "cc":"AZL", "price":"30", "compare":"35"},
+            {"img":"images/catalogo/3.webp", "sleeve":"Manga larga", "sl":"ML", "color":"Blanco",      "cc":"BLN", "price":"30", "compare":"35"},
+            {"img":"images/catalogo/4.webp", "sleeve":"Manga larga", "sl":"ML", "color":"Verde musgo", "cc":"VMU", "price":"30", "compare":"35"},
+            {"img":"images/catalogo/5.webp", "sleeve":"Manga larga", "sl":"ML", "color":"Beige",       "cc":"BEI", "price":"30", "compare":"35"},
 
             # Manga corta $25 / $30
-            {"img":"images/catalogo/6.png",  "sleeve":"Manga corta", "sl":"MC", "color":"Negro",       "cc":"NGR", "price":"25", "compare":"30"},
-            {"img":"images/catalogo/7.png",  "sleeve":"Manga corta", "sl":"MC", "color":"Azul",        "cc":"AZL", "price":"25", "compare":"30"},
-            {"img":"images/catalogo/8.png",  "sleeve":"Manga corta", "sl":"MC", "color":"Blanco",      "cc":"BLN", "price":"25", "compare":"30"},
-            {"img":"images/catalogo/9.png",  "sleeve":"Manga corta", "sl":"MC", "color":"Verde musgo", "cc":"VMU", "price":"25", "compare":"30"},
-            {"img":"images/catalogo/10.png", "sleeve":"Manga corta", "sl":"MC", "color":"Beige",       "cc":"BEI", "price":"25", "compare":"30"},
+            {"img":"images/catalogo/6.webp",  "sleeve":"Manga corta", "sl":"MC", "color":"Negro",       "cc":"NGR", "price":"25", "compare":"30"},
+            {"img":"images/catalogo/7.webp",  "sleeve":"Manga corta", "sl":"MC", "color":"Azul",        "cc":"AZL", "price":"25", "compare":"30"},
+            {"img":"images/catalogo/8.webp",  "sleeve":"Manga corta", "sl":"MC", "color":"Blanco",      "cc":"BLN", "price":"25", "compare":"30"},
+            {"img":"images/catalogo/9.webp",  "sleeve":"Manga corta", "sl":"MC", "color":"Verde musgo", "cc":"VMU", "price":"25", "compare":"30"},
+            {"img":"images/catalogo/10.webp", "sleeve":"Manga corta", "sl":"MC", "color":"Beige",       "cc":"BEI", "price":"25", "compare":"30"},
         ]
 
         created = 0

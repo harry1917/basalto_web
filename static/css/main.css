@@ -266,6 +266,23 @@
     .tabpanel{display:none;}
     #tab-men:checked ~ .panels #panel-men{display:block;}
     #tab-kids:checked ~ .panels #panel-kids{display:block;}
+    /* ===== Tabs: activos (faltaban) ===== */
+#tab-men:checked ~ .tabbar label[for="tab-men"],
+#tab-kids:checked ~ .tabbar label[for="tab-kids"],
+#tab-women:checked ~ .tabbar label[for="tab-women"],
+#tab-caps:checked ~ .tabbar label[for="tab-caps"],
+#tab-bags:checked ~ .tabbar label[for="tab-bags"]{
+  background: var(--ink);
+  color:#fff;
+}
+
+/* ===== Panels: mostrar el panel correcto (faltaban) ===== */
+#tab-men:checked ~ .panels #panel-men{display:block;}
+#tab-kids:checked ~ .panels #panel-kids{display:block;}
+#tab-women:checked ~ .panels #panel-women{display:block;}
+#tab-caps:checked ~ .panels #panel-caps{display:block;}
+#tab-bags:checked ~ .panels #panel-bags{display:block;}
+
 
     /* ===== Cards Ralph (SIN degradés) ===== */
     .grid{display:grid; grid-template-columns:1fr; gap:22px;}
@@ -1446,4 +1463,20 @@
   transform: rotate(12deg);
   animation: soldShimmer 2.8s ease-in-out infinite;
   pointer-events:none;
+}
+
+/* ===========================
+   Tabs: scroll horizontal (mejor en mobile)
+=========================== */
+.tabbar{
+  display:flex !important;
+  gap:10px;
+  overflow-x:auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom:6px;
+}
+
+.tabbar label{
+  flex:0 0 auto;
+  white-space:nowrap;
 }

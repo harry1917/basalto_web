@@ -96,7 +96,6 @@ def _to_decimal(value, default="0") -> Decimal:
     except (InvalidOperation, ValueError):
         return Decimal(default)
 
-
 @csrf_exempt
 @require_POST
 def create_order(request):
@@ -128,25 +127,44 @@ def create_order(request):
     if not isinstance(items, list) or len(items) == 0:
         return HttpResponseBadRequest("Carrito vacío")
 
-    valid_sizes = {"S", "M", "L", "XL", "XXL"}
+    # ---- Size helpers ----
+    SHIRT_SIZES = {"S", "M", "L", "XL", "XXL"}
+    ONE_SIZE_ALIASES = {"UNI", "UNICA", "ÚNICA", "ONE", "ONE SIZE", "OS", "U"}
+
+    def normalize_size(val: str) -> str:
+        s = (val or "").strip().upper()
+        if s in ONE_SIZE_ALIASES:
+            return "UNI"
+        return s
 
     # ---- Pre-clean + agrupar SKUs ----
     cleaned = []
     skus_needed = {}
 
     for it in items:
-        size = (it.get("size") or "").strip().upper()
-        if size not in valid_sizes:
-            return HttpResponseBadRequest("Talla inválida")
+        sku = (it.get("sku") or "").strip()
+
+        # talla
+        size = normalize_size(it.get("size") or "")
+
+        # ✅ Si NO trae SKU, asumimos camisa => exigir S–XXL
+        if not sku:
+            if size not in SHIRT_SIZES:
+                return HttpResponseBadRequest("Talla inválida")
+        else:
+            # ✅ Si trae SKU (accesorios o camisa), permitir UNI o S-XXL
+            if not size:
+                size = "UNI"
+            if size not in (SHIRT_SIZES | {"UNI"}):
+                return HttpResponseBadRequest("Talla inválida")
 
         qty = max(1, _to_int(it.get("qty"), 1))
 
-        sku = (it.get("sku") or "").strip()
         if sku:
             skus_needed[sku] = skus_needed.get(sku, 0) + qty
 
         cleaned.append({
-            "title": (it.get("title") or "Camisa cuello chino").strip(),
+            "title": (it.get("title") or "Producto BASALTO").strip(),
             "sleeve": (it.get("sleeve") or "").strip(),
             "color": (it.get("color") or "").strip(),
             "size": size,
@@ -187,12 +205,17 @@ def create_order(request):
             if row["sku"]:
                 v = variants_by_sku[row["sku"]]
                 unit_price = Decimal(v.price)  # ✅ precio real desde DB
-                # opcional: sincronizar display
+
+                # sincronizar display desde DB
                 row["title"] = v.product.title
                 row["sleeve"] = v.sleeve
                 row["color"] = v.color
                 row["fabric"] = v.fabric
                 row["img"] = v.img
+
+                # ✅ si el variant es talla única, forzamos size UNI
+                if normalize_size(v.size) == "UNI":
+                    row["size"] = "UNI"
             else:
                 unit_price = _to_decimal(row["raw_price"], "0")
 
@@ -252,21 +275,16 @@ def create_order(request):
         # ---- Wompi: only for card ----
         order.payment_link = ""
         if payment_method == "card":
-            success_url = f"{settings.FRONTEND_DOMAIN.rstrip('/')}/payment/success/"
-            webhook_url = settings.WOMPI_WEBHOOK_URL
-
             try:
                 payment_link = create_payment_link(
                     order_number=order.order_number,
                     amount_usd=float(order.total),
                     success_url="https://www.basalto1530.com/payment/success/",
                     webhook_url="https://web-production-844fb.up.railway.app/wompi/callback/",
-
                 )
                 order.payment_link = payment_link or ""
                 order.status = "payment_link_created" if order.payment_link else "pending"
             except Exception as e:
-                # No botar toda la orden si Wompi falla
                 order.payment_link = ""
                 order.status = "pending"
                 order.save(update_fields=["payment_link", "status", "updated_at"])
@@ -277,7 +295,6 @@ def create_order(request):
                     "order_number": order.order_number,
                 }, status=502)
         else:
-            # Transferencia
             order.status = "pending"
 
         order.save(update_fields=["payment_link", "status", "updated_at"])

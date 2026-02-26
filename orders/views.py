@@ -30,55 +30,129 @@ def staff_required(user):
     return user.is_authenticated and (user.is_staff or user.is_superuser)
 
 
+import json
+from collections import defaultdict
+from .models import Variant
+
+SIZES = ["S", "M", "L", "XL", "XXL"]
+
 def build_men_cards():
     """
-    Construye cards (agrupadas) desde Variant:
-    - agrupa por producto + sleeve + color + img + price + compare_at
-    - genera sku_map por talla
+    Cards agrupadas para el catálogo:
+    - Camisas: agrupa por producto + sleeve + color + price + compare_at (NO por img)
+    - sku_map por talla
+    - img: toma una imagen representativa del grupo (prioriza talla M si existe)
+    - kind: shirt vs accessory según tallas reales (UNI / única / one size)
     """
+
     variants = Variant.objects.filter(active=True, inventory__gt=0).select_related("product")
 
+    def norm(s):
+        return (str(s or "").strip()).upper()
 
-    groups = {}
+    def is_one_size(sz: str) -> bool:
+        s = norm(sz)
+        return s in {"UNI", "UNICA", "ÚNICA", "ONE", "ONE SIZE", "OS", "U"}
+
+    groups = defaultdict(list)
+
+    # 👇 CLAVE: QUITAMOS img de la llave de agrupación
     for v in variants:
-        key = (v.product_id, v.sleeve, v.color, v.img, str(v.price), str(v.compare_at))
-        groups.setdefault(key, []).append(v)
+        key = (v.product_id, v.sleeve, v.color, str(v.price), str(v.compare_at))
+        groups[key].append(v)
 
     cards = []
-    for (_, sleeve, color, img, _, _), group in groups.items():
-        sku_map = {g.size: g.sku for g in group}
+
+    for (product_id, sleeve, color, _price, _compare), group in groups.items():
+        # sku_map con tallas reales del grupo
+        sku_map = {str(g.size).strip(): g.sku for g in group if str(g.sku or "").strip()}
+
+        sizes_present = [norm(g.size) for g in group if str(g.sku or "").strip()]
+        unique_sizes = sorted(set([s for s in sizes_present if s]))
+
+        # Detectar accesorio vs camisa
+        is_accessory = (len(unique_sizes) == 1 and is_one_size(unique_sizes[0])) or any(is_one_size(s) for s in unique_sizes)
+        kind = "accessory" if is_accessory else "shirt"
+
+        # Elegir una imagen representativa:
+        # prioridad: talla M -> primera del grupo
+        img = ""
+        pick = None
+        for g in group:
+            if norm(g.size) == "M" and g.img:
+                pick = g
+                break
+        if not pick:
+            pick = group[0]
+        img = pick.img or ""
+
         cards.append({
             "title": group[0].product.title if group and group[0].product else "Producto",
-            "sleeve": sleeve,
+            "sleeve": sleeve if not is_accessory else "Accesorio",
             "color": color,
             "fabric": group[0].fabric if group else "",
             "img": img,
             "price": group[0].price if group else 0,
             "compare": group[0].compare_at if group else 0,
-            "sizes": SIZES,
+            "kind": kind,
             "sku_map": sku_map,
+            "sku_map_json": json.dumps(sku_map),
+            "sizes": SIZES if kind == "shirt" else [],
         })
 
+    # Orden simple
     def order_key(c):
-        sleeve = (c["sleeve"] or "").lower()
-        return (0 if "larga" in sleeve else 1, c["color"] or "")
+        s = (c["sleeve"] or "").lower()
+        return (0 if "larga" in s else 1, c["color"] or "")
+
     cards.sort(key=order_key)
-
     return cards
-
 
 # =========================
 # Public pages
 # =========================
-def home(request):
-    return render(request, "index.html", {"men_cards": build_men_cards()})
 
+
+def split_cards(cards):
+    shirts = [c for c in cards if c.get("kind") == "shirt"]
+    accessories = [c for c in cards if c.get("kind") == "accessory"]
+
+    def has_token(card, token: str) -> bool:
+        sku_map = card.get("sku_map") or {}
+        return any(token in str(sku or "").upper() for sku in sku_map.values())
+
+    caps = [c for c in accessories if has_token(c, "-CAP-")]
+    bags = [c for c in accessories if has_token(c, "-BAG-")]
+
+    return shirts, caps, bags
+
+
+def home(request):
+    cards = build_men_cards()
+    shirts, caps, bags = split_cards(cards)
+    return render(request, "index.html", {
+        "men_cards": shirts,
+        "caps_cards": caps,
+        "bags_cards": bags,
+    })
 
 def catalogo(request):
-    return render(request, "catalogo.html", {"men_cards": build_men_cards()})
+    cards = build_men_cards()
+    shirts, caps, bags = split_cards(cards)
+    return render(request, "catalogo.html", {
+        "men_cards": shirts,
+        "caps_cards": caps,
+        "bags_cards": bags,
+    })
 
 def nocturne(request):
-    return render(request, "nocturne.html", {"men_cards": build_men_cards()})
+    cards = build_men_cards()
+    shirts, caps, bags = split_cards(cards)
+    return render(request, "nocturne.html", {
+        "men_cards": shirts,
+        "caps_cards": caps,
+        "bags_cards": bags,
+    })
 
 
 # =========================

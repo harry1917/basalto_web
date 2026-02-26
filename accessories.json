@@ -1,0 +1,177 @@
+[
+  {
+    "model": "orders.product",
+    "pk": 10,
+    "fields": {
+      "title": "Fear of the Dark — Gorra plana negra Eddie (bordado gris)",
+      "slug": "fear-of-the-dark-gorra-plana-negra-eddie-bordado-gris",
+      "description": "Gorra plana negra. Eddie bordado en color gris. Fear Of The Dark.",
+      "active": true
+    }
+  },
+  {
+    "model": "orders.product",
+    "pk": 11,
+    "fields": {
+      "title": "Fear of the Dark — Gorra plana camuflada Eddie (bordado gris)",
+      "slug": "fear-of-the-dark-gorra-plana-camuflada-eddie-bordado-gris",
+      "description": "Gorra plana camuflada. Eddie bordado en color gris. Fear Of The Dark.",
+      "active": true
+    }
+  },
+  {
+    "model": "orders.product",
+    "pk": 12,
+    "fields": {
+      "title": "Hijos del Volcán — Gorra plana negra (bordado gris)",
+      "slug": "hijos-del-volcan-gorra-plana-negra-bordado-gris",
+      "description": "Gorra plana negra. Hijos del Volcán bordado en color gris.",
+      "active": true
+    }
+  },
+  {
+    "model": "orders.product",
+    "pk": 13,
+    "fields": {
+      "title": "Hijos del Volcán — Gorra plana negra (3D negro sobre negro)",
+      "slug": "hijos-del-volcan-gorra-plana-negra-3d-negro",
+      "description": "Gorra plana negra. Hijos del Volcán texturizado 3D en color negro sobre negro.",
+      "active": true
+    }
+  },
+  {
+    "model": "orders.product",
+    "pk": 14,
+    "fields": {
+      "title": "Fear of the Dark — Gorra plana negra Eddie (3D negro sobre negro)",
+      "slug": "fear-of-the-dark-gorra-plana-negra-eddie-3d-negro",
+      "description": "Gorra plana negra. Eddie texturizado 3D en color negro sobre negro. Fear Of The Dark.",
+      "active": true
+    }
+  },
+  {
+    "model": "orders.product",
+    "pk": 15,
+    "fields": {
+      "title": "Hijos del Volcán — Bolso beige (gimnasio / salida ligera)",
+      "slug": "hijos-del-volcan-bolso-beige-gimnasio",
+      "description": "Bolso beige para gimnasio o salida ligera. Hecho en El Salvador.",
+      "active": true
+    }
+  },
+
+  {
+    "model": "orders.variant",
+    "pk": 200,
+    "fields": {
+      "product": 10,
+      "sku": "BAS-FOD-CAP-BLK-EDDIE-GRY-UNI",
+      "sleeve": "",
+      "color": "Negro",
+      "size": "UNI",
+      "fabric": "Algodón estructurado",
+      "img": "https://TU_URL_GORRA_FOD_NEGRA_EDDIE_BORDADO_GRIS.webp",
+      "price": "25.00",
+      "inventory": 50,
+      "low_stock_threshold": 10,
+      "active": true,
+      "updated_at": "2026-02-24T00:00:00.000Z",
+      "compare_at": "30.00"
+    }
+  },
+  {
+    "model": "orders.variant",
+    "pk": 201,
+    "fields": {
+      "product": 11,
+      "sku": "BAS-FOD-CAP-CAMO-EDDIE-GRY-UNI",
+      "sleeve": "",
+      "color": "Camuflaje",
+      "size": "UNI",
+      "fabric": "Algodón estructurado",
+      "img": "https://TU_URL_GORRA_FOD_CAMU_EDDIE_BORDADO_GRIS.webp",
+      "price": "25.00",
+      "inventory": 50,
+      "low_stock_threshold": 10,
+      "active": true,
+      "updated_at": "2026-02-24T00:00:00.000Z",
+      "compare_at": "30.00"
+    }
+  },
+  {
+    "model": "orders.variant",
+    "pk": 202,
+    "fields": {
+      "product": 12,
+      "sku": "BAS-HDV-CAP-BLK-HDV-GRY-UNI",
+      "sleeve": "",
+      "color": "Negro",
+      "size": "UNI",
+      "fabric": "Algodón estructurado",
+      "img": "https://TU_URL_GORRA_HDV_NEGRA_BORDADO_GRIS.webp",
+      "price": "25.00",
+      "inventory": 50,
+      "low_stock_threshold": 10,
+      "active": true,
+      "updated_at": "2026-02-24T00:00:00.000Z",
+      "compare_at": "30.00"
+    }
+  },
+  {
+    "model": "orders.variant",
+    "pk": 203,
+    "fields": {
+      "product": 13,
+      "sku": "BAS-HDV-CAP-BLK-HDV-3D-BLK-UNI",
+      "sleeve": "",
+      "color": "Negro",
+      "size": "UNI",
+      "fabric": "Algodón estructurado",
+      "img": "https://TU_URL_GORRA_HDV_NEGRA_3D_NEGRO.webp",
+      "price": "25.00",
+      "inventory": 50,
+      "low_stock_threshold": 10,
+      "active": true,
+      "updated_at": "2026-02-24T00:00:00.000Z",
+      "compare_at": "30.00"
+    }
+  },
+  {
+    "model": "orders.variant",
+    "pk": 204,
+    "fields": {
+      "product": 14,
+      "sku": "BAS-FOD-CAP-BLK-EDDIE-3D-BLK-UNI",
+      "sleeve": "",
+      "color": "Negro",
+      "size": "UNI",
+      "fabric": "Algodón estructurado",
+      "img": "https://TU_URL_GORRA_FOD_NEGRA_EDDIE_3D_NEGRO.webp",
+      "price": "30.00",
+      "inventory": 50,
+      "low_stock_threshold": 10,
+      "active": true,
+      "updated_at": "2026-02-24T00:00:00.000Z",
+      "compare_at": "0.00"
+    }
+  },
+  {
+    "model": "orders.variant",
+    "pk": 205,
+    "fields": {
+      "product": 15,
+      "sku": "BAS-HDV-BAG-BEI-UNI",
+      "sleeve": "",
+      "color": "Beige",
+      "size": "UNI",
+      "fabric": "Lona / textil",
+      "img": "https://TU_URL_BOLSO_HDV_BEIGE.webp",
+      "price": "35.00",
+      "inventory": 30,
+      "low_stock_threshold": 5,
+      "active": true,
+      "updated_at": "2026-02-24T00:00:00.000Z",
+      "compare_at": "40.00"
+    }
+  }
+]

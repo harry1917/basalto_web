@@ -22,20 +22,55 @@
       const v = Number(n || 0);
       return `$${v.toFixed(2)}`;
     };
+
     // ✅ Normaliza precios tipo "30,00" / "$30.00" / "30" -> Number 30.00
-const normalizePrice = (val) => {
-  let s = String(val ?? "").trim();
-  s = s.replace(",", ".");              // 30,00 -> 30.00
-  s = s.replace(/[^0-9.]/g, "");        // deja dígitos y punto
+    const normalizePrice = (val) => {
+      let s = String(val ?? "").trim();
+      s = s.replace(",", ".");
+      s = s.replace(/[^0-9.]/g, "");
+      const parts = s.split(".");
+      if (parts.length > 2) s = parts[0] + "." + parts.slice(1).join("");
+      const n = Number(s || 0);
+      return Number.isFinite(n) ? n : 0;
+    };
 
-  // si hay más de un punto, deja solo el primero
-  const parts = s.split(".");
-  if (parts.length > 2) s = parts[0] + "." + parts.slice(1).join("");
+    const normalizeSizeKey = (s) => String(s || "").trim().toUpperCase();
+    const isOneSize = (s) =>
+      ["UNI", "UNICA", "ÚNICA", "ONE", "ONE SIZE", "OS", "U"].includes(normalizeSizeKey(s));
 
-  const n = Number(s || 0);
-  return Number.isFinite(n) ? n : 0;
-};
+    const getAvailableSizes = (skuMap) => {
+      const m = skuMap || {};
+      return Object.keys(m).filter((k) => String(m[k] || "").trim());
+    };
 
+    // ✅ parse robusto de skuMap (soporta \" escapado)
+    const parseSkuMap = (raw) => {
+      const s = String(raw || "").trim();
+      if (!s) return {};
+      try {
+        return JSON.parse(s);
+      } catch (_) {
+        try {
+          return JSON.parse(s.replace(/\\"/g, '"'));
+        } catch (e2) {
+          console.log("SKU MAP PARSE ERROR (raw):", s.slice(0, 120), e2);
+          return {};
+        }
+      }
+    };
+
+    // ✅ detección automática de tipo si no viene data-kind
+    const inferKind = (kindFromDom, skuMap) => {
+      const k = String(kindFromDom || "").trim().toLowerCase();
+      if (k) return k;
+
+      const sizes = getAvailableSizes(skuMap);
+      const norm = sizes.map(normalizeSizeKey);
+
+      if (norm.length <= 1) return "accessory";
+      if (norm.some(isOneSize)) return "accessory";
+      return "shirt";
+    };
 
     const getItemUnitPrice = (it) => {
       const p = it.unit_price ?? it.price ?? 0;
@@ -54,9 +89,7 @@ const normalizePrice = (val) => {
     // 🔑 Key única para merge (prioriza SKU si existe)
     const itemKey = (it) => {
       const sku = String(it.sku || "").trim();
-      const size = String(it.size || "M")
-        .trim()
-        .toUpperCase();
+      const size = String(it.size || "M").trim().toUpperCase();
       if (sku) return `SKU:${sku}|SIZE:${size}`;
 
       return [
@@ -98,19 +131,28 @@ const normalizePrice = (val) => {
     const closeModalById = (id) => {
       const m = $(id);
       if (!m) return;
-
-      // ✅ evita warning aria-hidden (si hay foco adentro)
-      if (m.contains(document.activeElement)) {
-        document.activeElement.blur();
-      }
-
+      if (m.contains(document.activeElement)) document.activeElement.blur();
       m.classList.remove("is-open");
       m.setAttribute("aria-hidden", "true");
       document.body.style.overflow = "";
     };
 
+    // ========= Elements (Checkout Modal) =========
+    const checkoutModal = $("checkoutModal");
+    const checkoutForm = $("checkoutForm");
+    const confirmOrderBtn = $("confirmOrderBtn");
+    const transferBox = $("transferBox");
+    const transferRefHint = $("transferRefHint");
+
+    const coName = $("coName");
+    const coPhone = $("coPhone");
+    const coAddress1 = $("coAddress1");
+    const coAddress2 = $("coAddress2");
+    const coDept = $("coDept");
+    const coCity = $("coCity");
+    const coNotes = $("coNotes");
+
     const getPayMethod = () => {
-      // ✅ leer SIEMPRE desde el form (más confiable que querySelector)
       if (checkoutForm) {
         const v = new FormData(checkoutForm).get("pay_method");
         return (v || "card").toString().trim().toLowerCase();
@@ -118,7 +160,6 @@ const normalizePrice = (val) => {
       const v = document.querySelector('input[name="pay_method"]:checked')?.value;
       return (v || "card").toString().trim().toLowerCase();
     };
-    
 
     const updateGoCheckoutVisibility = () => {
       const btn = $("goCheckoutBtn");
@@ -147,10 +188,9 @@ const normalizePrice = (val) => {
         div.innerHTML = `
           <div class="sum-thumb" style="background-image:url('${it.img || ""}')"></div>
           <div class="sum-info">
-            <p class="sum-title">${it.title || "Camisa cuello chino"}</p>
+            <p class="sum-title">${it.title || "Producto BASALTO"}</p>
             <div class="sum-meta">
-              ${(it.sleeve || "").trim()} · ${(it.color || "").trim()} · Talla ${(it.size || "M")
-          .toUpperCase()} · x${qty}
+              ${(it.sleeve || "").trim()} · ${(it.color || "").trim()} · ${it.size ? `Talla ${(it.size || "").toUpperCase()} · ` : ""}x${qty}
               ${it.sku ? ` · <span style="color:var(--muted)">SKU ${it.sku}</span>` : ``}
             </div>
           </div>
@@ -185,7 +225,6 @@ const normalizePrice = (val) => {
       itemsWrap.innerHTML = "";
       empty.style.display = cart.length ? "none" : "block";
 
-      // badge
       if (badge) {
         const count = cart.reduce((acc, it) => acc + Number(it.qty || 1), 0);
         badge.textContent = String(count);
@@ -203,10 +242,9 @@ const normalizePrice = (val) => {
         div.innerHTML = `
           <div class="dthumb" style="background-image:url('${it.img || ""}')"></div>
           <div class="dmeta">
-            <p class="dtitle">${it.title || "Camisa cuello chino"}</p>
+            <p class="dtitle">${it.title || "Producto BASALTO"}</p>
             <div class="dsub">
-              ${(it.sleeve || "").trim()} · ${(it.color || "").trim()} · Talla ${(it.size || "M")
-          .toUpperCase()}
+              ${(it.sleeve || "").trim()} · ${(it.color || "").trim()} ${it.size ? `· Talla ${(it.size || "").toUpperCase()}` : ""}
               ${it.sku ? ` · SKU ${it.sku}` : ``}
             </div>
 
@@ -270,6 +308,12 @@ const normalizePrice = (val) => {
     const pmCompare = $("pmCompare");
     const pmColor = $("pmColor");
     const pmFabric = $("pmFabric");
+
+    const pmNeckWrap = $("pmNeckWrap"); // puede no existir
+    const pmNeck = $("pmNeck"); // puede no existir
+    const pmSizeWrap = $("pmSizeWrap"); // puede no existir
+    const pmSizeHint = $("pmSizeHint"); // puede no existir
+
     const pmQty = $("pmQty");
     const pmSize = $("pmSize");
     const qtyMinus = $("qtyMinus");
@@ -279,31 +323,40 @@ const normalizePrice = (val) => {
     const goCheckoutBtn = resetBtn("goCheckoutBtn");
     const buyNowBtn = resetBtn("buyNowBtn");
 
-    // ========= Elements (Checkout Modal) =========
-    const checkoutModal = $("checkoutModal");
-    const checkoutForm = $("checkoutForm");
-    const confirmOrderBtn = $("confirmOrderBtn");
-    const transferBox = $("transferBox");
-    const transferRefHint = $("transferRefHint");
-
-    const coName = $("coName");
-    const coPhone = $("coPhone");
-    const coAddress1 = $("coAddress1");
-    const coAddress2 = $("coAddress2");
-    const coDept = $("coDept");
-    const coCity = $("coCity");
-    const coNotes = $("coNotes");
+    // fallback DOM: encontrar span del cuello si no hay #pmNeck
+    const getFallbackNeckSpan = () => {
+      // busca el primer bloque "Cuello" dentro del modal
+      const keys = Array.from(productModal.querySelectorAll(".mkey"));
+      const cuelloKey = keys.find((k) => (k.textContent || "").trim().toLowerCase() === "cuello");
+      if (!cuelloKey) return null;
+      const wrap = cuelloKey.closest("div");
+      if (!wrap) return null;
+      return wrap.querySelector(".mval");
+    };
 
     // ========= Build item from current =========
     const buildItemFromCurrent = (qty, size) => {
-      const SIZE = String(size || "M").toUpperCase();
       const skuMap = currentProduct?.sku_map || {};
-      const chosenSku = String(skuMap[SIZE] || "").trim(); // SKU por talla
+      const kind = (currentProduct?.kind || "shirt").toLowerCase();
+
+      const availableSizes = getAvailableSizes(skuMap);
+      let SIZE = normalizeSizeKey(size || "M");
+
+      if (kind !== "shirt") {
+        const one = availableSizes.find(isOneSize);
+        SIZE = one ? normalizeSizeKey(one) : normalizeSizeKey(availableSizes[0] || "UNI");
+      } else {
+        if (!String(skuMap[SIZE] || "").trim() && availableSizes.length) {
+          SIZE = normalizeSizeKey(availableSizes[0]);
+        }
+      }
+
+      const chosenSku = String(skuMap[SIZE] || "").trim();
 
       return {
         sku: chosenSku,
         img: currentProduct?.img || "",
-        title: currentProduct?.title || "Camisa cuello chino",
+        title: currentProduct?.title || "Producto BASALTO",
         sleeve: currentProduct?.sleeve || "",
         color: currentProduct?.color || "",
         fabric: currentProduct?.fabric || "",
@@ -311,6 +364,7 @@ const normalizePrice = (val) => {
         compare: String(currentProduct?.compare || "0"),
         qty: Math.max(1, parseInt(qty || 1, 10)),
         size: SIZE,
+        kind,
       };
     };
 
@@ -318,19 +372,75 @@ const normalizePrice = (val) => {
     const openProductModal = (data) => {
       currentProduct = data;
 
+      const skuMap = data.sku_map || {};
+      const kind = inferKind(data.kind, skuMap);
+
       if (pmImg) {
         pmImg.src = data.img || "";
         pmImg.alt = `${data.title || "Producto"} ${data.color || ""}`.trim();
       }
-      if (pmTitle) pmTitle.textContent = data.title || "Camisa cuello chino";
-      if (pmKicker) pmKicker.textContent = (data.sleeve || "").toUpperCase();
+
+      if (pmTitle) pmTitle.textContent = data.title || "Producto BASALTO";
       if (pmPrice) pmPrice.textContent = normalizePrice(data.price).toFixed(2);
       if (pmCompare) pmCompare.textContent = data.compare ?? "0";
       if (pmColor) pmColor.textContent = data.color || "";
       if (pmFabric) pmFabric.textContent = data.fabric || "";
 
+      if (pmKicker) {
+        if (kind === "shirt") pmKicker.textContent = (data.sleeve || "Manga").toUpperCase();
+        else pmKicker.textContent = "ACCESORIO";
+      }
+
+      // cuello (solo shirts)
+      const showNeck = kind === "shirt";
+      if (pmNeckWrap) pmNeckWrap.style.display = showNeck ? "" : "none";
+      if (pmNeck) pmNeck.textContent = showNeck ? "-" : "";
+      else {
+        const neckSpan = getFallbackNeckSpan();
+        if (neckSpan) neckSpan.textContent = showNeck ? "-" : "";
+      }
+
+      // tallas
+      let sizes = getAvailableSizes(skuMap);
+
+      // fallback fuerte: que NUNCA quede vacío en camisas
+      if ((kind === "shirt") && (!sizes || !sizes.length)) {
+        sizes = ["S", "M", "L", "XL", "XXL"];
+      }
+
+      if (pmSizeWrap) pmSizeWrap.style.display = (kind === "shirt") ? "" : "none";
+
+      if (pmSize) {
+        pmSize.innerHTML = "";
+
+        if (kind === "shirt") {
+          sizes.forEach((sz) => {
+            const opt = document.createElement("option");
+            opt.value = normalizeSizeKey(sz);
+            opt.textContent = normalizeSizeKey(sz);
+            pmSize.appendChild(opt);
+          });
+
+          // si por cualquier razón no se agregó nada, mete fallback
+          if (pmSize.options.length === 0) {
+            ["S", "M", "L", "XL", "XXL"].forEach((sz) => {
+              const opt = document.createElement("option");
+              opt.value = sz;
+              opt.textContent = sz;
+              pmSize.appendChild(opt);
+            });
+          }
+
+          pmSize.value = pmSize.options.length ? pmSize.options[0].value : "M";
+          if (pmSizeHint) pmSizeHint.style.display = "";
+          pmSize.disabled = false;
+        } else {
+          if (pmSizeHint) pmSizeHint.style.display = "none";
+          pmSize.disabled = true;
+        }
+      }
+
       if (pmQty) pmQty.value = 1;
-      if (pmSize) pmSize.value = "M";
 
       openModalById("productModal");
       updateGoCheckoutVisibility();
@@ -343,21 +453,19 @@ const normalizePrice = (val) => {
 
     const openCheckout = () => {
       openModalById("checkoutModal");
-    
+
       const checked = document.querySelector('input[name="pay_method"]:checked');
       if (!checked) {
         const cardRadio = document.querySelector('input[name="pay_method"][value="card"]');
         if (cardRadio) cardRadio.checked = true;
       }
-    
+
       const method = getPayMethod();
       if (transferBox) transferBox.style.display = method === "transfer" ? "block" : "none";
       if (transferRefHint) transferRefHint.textContent = "Se genera al confirmar";
-    
+
       renderCheckoutSummary();
     };
-    
-    
 
     const closeCheckout = () => closeModalById("checkoutModal");
 
@@ -370,32 +478,26 @@ const normalizePrice = (val) => {
 
       ev.preventDefault();
 
-      let skuMap = {};
-      try {
-        skuMap = JSON.parse(btn.dataset.skuMap || "{}");
-      } catch (err) {
-        skuMap = {};
-      }
-      // ✅ SOLD OUT: si no hay ningún SKU disponible, marcamos la card
-       const hasAnySku = skuMap && Object.values(skuMap).some(v => String(v || "").trim());
-       const cardEl = btn.closest(".card");
-     if (cardEl) cardEl.classList.toggle("is-soldout", !hasAnySku);
+      const skuMap = parseSkuMap(btn.dataset.skuMap || "{}");
 
-        // Opcional: si está sold out, no abrir modal
-     if (!hasAnySku) {
-      alert("Sold out — pronto re-stock.");
-       return;
-      }
+      const hasAnySku = skuMap && Object.values(skuMap).some((v) => String(v || "").trim());
+      const cardEl = btn.closest(".card");
+      if (cardEl) cardEl.classList.toggle("is-soldout", !hasAnySku);
 
+      if (!hasAnySku) {
+        alert("Sold out — pronto re-stock.");
+        return;
+      }
 
       openProductModal({
         img: btn.dataset.img || "",
-        title: btn.dataset.title || "Camisa cuello chino",
+        title: btn.dataset.title || "Producto BASALTO",
         sleeve: btn.dataset.sleeve || "",
         color: btn.dataset.color || "",
         price: normalizePrice(btn.dataset.price || "0"),
         compare: btn.dataset.compare || "0",
         fabric: btn.dataset.fabric || "",
+        kind: btn.dataset.kind || "",
         sku_map: skuMap,
       });
     });
@@ -442,7 +544,7 @@ const normalizePrice = (val) => {
         if (!currentProduct) return;
 
         const qty = Math.max(1, parseInt(pmQty?.value || "1", 10));
-        const size = (pmSize?.value || "M").toUpperCase();
+        const size = normalizeSizeKey(pmSize?.value || "M");
 
         const item = buildItemFromCurrent(qty, size);
         if (!item.sku) {
@@ -464,7 +566,7 @@ const normalizePrice = (val) => {
       goCheckoutBtn.addEventListener("click", () => {
         if (cart.length === 0 && currentProduct) {
           const qty = Math.max(1, parseInt(pmQty?.value || "1", 10));
-          const size = (pmSize?.value || "M").toUpperCase();
+          const size = normalizeSizeKey(pmSize?.value || "M");
           addOrMerge(buildItemFromCurrent(qty, size));
         }
         closeProductModal();
@@ -478,7 +580,7 @@ const normalizePrice = (val) => {
         if (!currentProduct) return;
 
         const qty = Math.max(1, parseInt(pmQty?.value || "1", 10));
-        const size = (pmSize?.value || "M").toUpperCase();
+        const size = normalizeSizeKey(pmSize?.value || "M");
 
         const item = buildItemFromCurrent(qty, size);
         if (!item.sku) {
@@ -551,149 +653,133 @@ const normalizePrice = (val) => {
       });
     }
 
-/* ==========================================
-   Checkout submit -> API -> Wompi / WhatsApp
-   - Card: abre Wompi directo
-   - Transfer: abre WhatsApp
-   - Siempre crea la orden
-========================================== */
-if (checkoutForm) {
-  checkoutForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
+    /* ==========================================
+       Checkout submit -> API -> Wompi / WhatsApp
+       - Card: abre Wompi directo
+       - Transfer: abre WhatsApp
+       - Siempre crea la orden
+    ========================================== */
+    if (checkoutForm) {
+      checkoutForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
 
-    if (cart.length === 0) {
-      alert("Tu pedido está vacío. Seleccioná al menos un producto.");
-      return;
-    }
+        if (cart.length === 0) {
+          alert("Tu pedido está vacío. Seleccioná al menos un producto.");
+          return;
+        }
 
-    const full_name = (coName?.value || "").trim();
-    const phone = (coPhone?.value || "").trim();
-    const address_line1 = (coAddress1?.value || "").trim();
+        const full_name = (coName?.value || "").trim();
+        const phone = (coPhone?.value || "").trim();
+        const address_line1 = (coAddress1?.value || "").trim();
 
-    if (!full_name || !phone || !address_line1) {
-      alert("Completa nombre, teléfono y dirección.");
-      return;
-    }
+        if (!full_name || !phone || !address_line1) {
+          alert("Completa nombre, teléfono y dirección.");
+          return;
+        }
 
-    // ✅ 1 sola fuente de verdad
-    const chosenMethod = getPayMethod();
+        const chosenMethod = getPayMethod();
 
-    // ✅ anti popup-blocker SOLO para Wompi
-    let pendingWin = null;
-    if (chosenMethod === "card") {
-      pendingWin = window.open("", "_blank");
-    }
+        let pendingWin = null;
+        if (chosenMethod === "card") {
+          pendingWin = window.open("", "_blank");
+        }
 
-    const payload = {
-      country: "El Salvador",
-      full_name,
-      phone,
-      address_line1,
-      address_line2: (coAddress2?.value || "").trim(),
-      department: (coDept?.value || "").trim(),
-      city: (coCity?.value || "").trim(),
-      notes: (coNotes?.value || "").trim(),
-      payment_method: chosenMethod,
-      items: cart.map((it) => ({
-        sku: it.sku || "",
-        title: it.title,
-        sleeve: it.sleeve,
-        color: it.color,
-        size: (it.size || "M").toUpperCase(),
-        fabric: it.fabric || "",
-        img: it.img || "",
-        qty: it.qty || 1,
-        unit_price: String(it.price ?? it.unit_price ?? "0").replace(/[^0-9.]/g, ""),
-      })),
-    };
+        const payload = {
+          country: "El Salvador",
+          full_name,
+          phone,
+          address_line1,
+          address_line2: (coAddress2?.value || "").trim(),
+          department: (coDept?.value || "").trim(),
+          city: (coCity?.value || "").trim(),
+          notes: (coNotes?.value || "").trim(),
+          payment_method: chosenMethod,
+          items: cart.map((it) => ({
+            sku: it.sku || "",
+            title: it.title,
+            sleeve: it.sleeve,
+            color: it.color,
+            size: (it.size || "").toUpperCase(),
+            fabric: it.fabric || "",
+            img: it.img || "",
+            qty: it.qty || 1,
+            unit_price: String(it.price ?? it.unit_price ?? "0").replace(/[^0-9.]/g, ""),
+          })),
+        };
 
-    if (confirmOrderBtn) {
-      confirmOrderBtn.disabled = true;
-      confirmOrderBtn.textContent = "Generando orden…";
-    }
+        if (confirmOrderBtn) {
+          confirmOrderBtn.disabled = true;
+          confirmOrderBtn.textContent = "Generando orden…";
+        }
 
-    try {
-      const res = await fetch("/api/orders/create/", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
+        try {
+          const res = await fetch("/api/orders/create/", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          });
 
-      const raw = await res.text();
-      if (!res.ok) {
-        console.log("CREATE_ORDER ERROR:", raw);
-        throw new Error(raw || "Error creando orden");
-      }
-      console.log("STATUS:", res.status);
-console.log("RAW:", raw);
-
-
-      const data = JSON.parse(raw);
-
-      if (data && data.ok === false) {
-        throw new Error(data.detail || "No se pudo crear la orden");
-      }
-
-      const orderNumber = data.order_number || "";
-
-      if (transferRefHint) {
-        transferRefHint.textContent = orderNumber ? orderNumber : "Tu número de orden";
-      }
-
-      // ✅ TARJETA: abrir SOLO WOMPI
-      if (chosenMethod === "card") {
-        if (data.payment_link) {
-          if (pendingWin && pendingWin.location) {
-            pendingWin.location.href = data.payment_link;
-          } else {
-            window.location.href = data.payment_link;
+          const raw = await res.text();
+          if (!res.ok) {
+            console.log("CREATE_ORDER ERROR:", raw);
+            throw new Error(raw || "Error creando orden");
           }
 
+          const data = JSON.parse(raw);
+
+          if (data && data.ok === false) {
+            throw new Error(data.detail || "No se pudo crear la orden");
+          }
+
+          const orderNumber = data.order_number || "";
+
+          if (transferRefHint) transferRefHint.textContent = orderNumber || "Tu número de orden";
+
+          if (chosenMethod === "card") {
+            if (data.payment_link) {
+              if (pendingWin && pendingWin.location) pendingWin.location.href = data.payment_link;
+              else window.location.href = data.payment_link;
+
+              cart.length = 0;
+              renderDrawer();
+              closeCheckout();
+              return;
+            }
+            try { if (pendingWin && !pendingWin.closed) pendingWin.close(); } catch (_) {}
+            alert("Orden creada, pero no se pudo generar el link de Wompi. Intentá de nuevo.");
+            return;
+          }
+
+          if (chosenMethod === "transfer") {
+            if (data.whatsapp_url) {
+              const w = window.open(data.whatsapp_url, "_blank", "noopener");
+              if (!w) window.location.href = data.whatsapp_url;
+
+              cart.length = 0;
+              renderDrawer();
+              closeCheckout();
+              return;
+            }
+
+            alert("Orden creada. No se pudo abrir WhatsApp automáticamente.");
+            return;
+          }
+
+          alert("Orden creada.");
           cart.length = 0;
           renderDrawer();
           closeCheckout();
-          return;
+        } catch (err) {
+          try { if (pendingWin && !pendingWin.closed) pendingWin.close(); } catch (_) {}
+          alert("No se pudo crear la orden: " + (err?.message || err));
+        } finally {
+          if (confirmOrderBtn) {
+            confirmOrderBtn.disabled = false;
+            confirmOrderBtn.textContent = "Confirmar y enviar";
+          }
         }
-
-        try { if (pendingWin && !pendingWin.closed) pendingWin.close(); } catch (_) {}
-        alert("Orden creada, pero no se pudo generar el link de Wompi. Intentá de nuevo.");
-        return;
-      }
-
-      // ✅ TRANSFERENCIA: abrir WhatsApp
-      if (chosenMethod === "transfer") {
-        if (data.whatsapp_url) {
-          const w = window.open(data.whatsapp_url, "_blank", "noopener");
-          if (!w) window.location.href = data.whatsapp_url;
-
-          cart.length = 0;
-          renderDrawer();
-          closeCheckout();
-          return;
-        }
-
-        alert("Orden creada. No se pudo abrir WhatsApp automáticamente.");
-        return;
-      }
-
-      // fallback extremo
-      alert("Orden creada.");
-      cart.length = 0;
-      renderDrawer();
-      closeCheckout();
-    } catch (err) {
-      try { if (pendingWin && !pendingWin.closed) pendingWin.close(); } catch (_) {}
-      alert("No se pudo crear la orden: " + (err?.message || err));
-    } finally {
-      if (confirmOrderBtn) {
-        confirmOrderBtn.disabled = false;
-        confirmOrderBtn.textContent = "Confirmar y enviar";
-      }
+      });
     }
-  });
-}
-
-
 
     // Inicial
     updateGoCheckoutVisibility();
@@ -704,8 +790,9 @@ console.log("RAW:", raw);
   });
 })();
 
+
 /* ===========================
-   Catalog filters (tab-aware + counter)
+   Catalog filters (tab-aware + counter) — FIX for Caps/Bags
 =========================== */
 (() => {
   document.addEventListener("DOMContentLoaded", () => {
@@ -718,14 +805,20 @@ console.log("RAW:", raw);
     const tabMen = document.getElementById("tab-men");
     const tabKids = document.getElementById("tab-kids");
     const tabWomen = document.getElementById("tab-women");
+    const tabCaps = document.getElementById("tab-caps");
+    const tabBags = document.getElementById("tab-bags");
 
     function norm(s) {
-      return String(s || "")
-        .trim()
-        .toLowerCase();
+      return String(s || "").trim().toLowerCase();
+    }
+
+    function isAccessoryTabActive() {
+      return (tabCaps && tabCaps.checked) || (tabBags && tabBags.checked);
     }
 
     function getActiveGrid() {
+      if (tabCaps && tabCaps.checked) return document.getElementById("catalogGrid-caps");
+      if (tabBags && tabBags.checked) return document.getElementById("catalogGrid-bags");
       if (tabKids && tabKids.checked) return document.getElementById("catalogGrid-kids");
       if (tabWomen && tabWomen.checked) return document.getElementById("catalogGrid-women");
       return document.getElementById("catalogGrid-men");
@@ -749,15 +842,20 @@ console.log("RAW:", raw);
 
       const cards = Array.from(grid.querySelectorAll(".card"));
       const total = cards.length;
-
       let shown = 0;
+
+      const accessoryTab = isAccessoryTabActive();
 
       cards.forEach((card) => {
         const sleeve = norm(card.getAttribute("data-sleeve"));
         const color = norm(card.getAttribute("data-color"));
         const text = norm(card.innerText);
 
-        const okSleeve = state.sleeve === "all" || sleeve === norm(state.sleeve);
+        // ✅ IMPORTANTE:
+        // En gorras/bolsos ignoramos el filtro "Manga" (si no, se esconden todas).
+        const okSleeve =
+          accessoryTab ? true : (state.sleeve === "all" || sleeve === norm(state.sleeve));
+
         const okColor = state.color === "all" || color === norm(state.color);
         const okQ = !state.q || text.includes(norm(state.q));
 
@@ -820,6 +918,8 @@ console.log("RAW:", raw);
     bindTab(tabMen);
     bindTab(tabKids);
     bindTab(tabWomen);
+    bindTab(tabCaps);
+    bindTab(tabBags);
 
     apply();
   });

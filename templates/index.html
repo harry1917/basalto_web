@@ -1,17 +1,18 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}BASALTO | Home{% endblock %}
-
 {% block content %}
-  <!-- HERO -->
+
+  <!-- 1) BANNER PRINCIPAL (HERO) -->
   <section class="hero hero-bg"
-    style="--hero:url('https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769279454/1_opwqlx.png');">
+  style="--hero:url('{% static "images/banners/1.webp" %}');">
     <div class="wrap">
       <div class="hero-content">
         <div class="hero-row">
           <span class="pill">Hecho en San Miguel, El Salvador</span>
           <span class="pill">Edición por lote</span>
-          <span class="pill">Tallas S–XXL</span>
+          <span class="pill">Camisas S–XXL · Gorras talla única</span>
         </div>
 
         <h1>Hecho con intención.</h1>
@@ -22,42 +23,108 @@
         </p>
 
         <div class="hero-row">
-          <a class="btn primary" href="#catalogo">Ver catálogo</a>
+          <a class="btn primary" href="#gorras">Ver gorras</a>
+          <a class="btn" href="#catalogo">Ver camisas</a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- BANNER EDITORIAL -->
-  <section>
-    <div class="wrap">
-      <div class="banner">
-        <div class="banner-media"
-          style="--img:url('https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769279456/2_y2cqva.png');">
-          <div class="banner-copy">
-            <h3>Confección impecable. Estilo que permanece.</h3>
-            <p>
-              Proporción, detalle y una presencia serena.
-              BASALTO está pensado para un guardarropa esencial.
-            </p>
-            <div class="banner-actions">
-              <a class="btn primary" href="#catalogo">Explorar la colección</a>
+  <!-- 2) FILTROS (SECCIÓN DE CAMISAS) -->
+  {# incluye filtros + tabs + grid de camisas #}
+  {% include "partials/catalogo_section.html" %}
+
+    <!-- 4) BANNER EDITORIAL (CAMISAS) -->
+    <section>
+      <div class="wrap">
+        <div class="banner">
+          <div class="banner-media"
+            style="--img:url('{% static "images/banners/9.webp" %}');">
+            <div class="banner-copy">
+              <h3>Confección impecable. Estilo que permanece.</h3>
+              <p>
+                Proporción, detalle y una presencia serena.
+                BASALTO está pensado para un guardarropa esencial.
+                Producción por lote: <strong>20 días</strong>.
+              </p>
+              <div class="banner-actions">
+                <a class="btn primary" href="#catalogo">Explorar camisas</a>
+              </div>
             </div>
           </div>
         </div>
       </div>
+    </section>
+
+  <!-- 3) GORRAS -->
+  {% if caps_cards and caps_cards|length %}
+  <section id="gorras" class="tabs" style="margin-top:32px;">
+    <div class="wrap">
+
+      <div class="section-head">
+        <div>
+          <h2>Gorras</h2>
+          <p>Edición limitada. Bordados y 3D texturizado. Hecho en El Salvador.</p>
+        </div>
+        <span class="pill">Accesorios</span>
+      </div>
+
+      <div class="grid" id="catalogGrid-caps">
+        {% for card in caps_cards %}
+        <article class="card" data-sleeve="{{ card.sleeve }}" data-color="{{ card.color }}">
+          <div class="thumb" style="--img:url('{{ card.img }}');"></div>
+
+          <div class="meta">
+            <span class="kicker">ACCESORIO</span>
+
+            <div class="titleRow">
+              <h4>{{ card.title }}</h4>
+              <div class="price">
+                ${{ card.price }}
+                {% if card.compare and card.compare > 0 %}
+                  <del>${{ card.compare }}</del>
+                {% endif %}
+              </div>
+            </div>
+
+            <p class="colorline">{{ card.color }}</p>
+
+            <div class="cta">
+              <a class="cardlink js-open-modal" href="#"
+                 data-img="{{ card.img }}"
+                 data-title="{{ card.title }}"
+                 data-sleeve="{{ card.sleeve }}"
+                 data-color="{{ card.color }}"
+                 data-price="{{ card.price }}"
+                 data-compare="{{ card.compare }}"
+                 data-fabric="{{ card.fabric }}"
+                 data-kind="{{ card.kind }}"
+                 data-sku-map='{{ card.sku_map_json|escape }}'
+              >Ver detalles</a>
+            </div>
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+
+      <div class="hr"></div>
+      <p class="fineprint">
+        * Accesorios talla única. Envío nacional: <strong>$3</strong>. Producción por lote: <strong>20 días</strong>.
+      </p>
+
     </div>
   </section>
+  {% endif %}
 
-  {% include "partials/catalogo_section.html" %}
 
-  <!-- COLECCIONES -->
+
+  <!-- 5) COLECCIONES (1932 / HIJOS DEL VOLCÁN) -->
   <section id="colecciones">
     <div class="wrap">
       <div class="section-head">
         <div>
           <h2>Colecciones</h2>
-          <p>Ediciones limitadas, diseñadas con intención.</p>
+          <p>Ediciones limitadas, diseñadas con intención. Producción por lote: <strong>20 días</strong>.</p>
         </div>
         <span class="pill">Ediciones</span>
       </div>
@@ -65,46 +132,49 @@
       <div class="split">
         <article class="panel">
           <div class="panel-media"
-            style="--img:url('https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769279458/5_hlkklz.png');">
-            <div class="label">Edición actual · Pre-order cerrado</div>
+            style="--img:url('{% static "images/banners/10.webp" %}');">
+            <div class="label">Edición</div>
           </div>
           <div class="panel-body">
-            <h3 class="panel-title">San Valentín</h3>
+            <h3 class="panel-title">1932</h3>
             <p class="panel-text">
-              Tonos sobrios, detalles discretos y propuesta en pareja.
+              Una edición con peso histórico y estética sobria. Piezas por lote, detalle limpio y presencia silenciosa.
             </p>
+            <div class="cta"><a class="link" href="#contacto">Entrar a lista</a></div>
           </div>
         </article>
 
         <article class="panel">
           <div class="panel-media"
-            style="--img:url('https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769279457/3_hmbr2z.png');">
-            <div class="label">Próximamente</div>
+            style="--img:url('{% static "images/banners/12.webp" %}');">
+            <div class="label">Drop</div>
           </div>
           <div class="panel-body">
-            <h3 class="panel-title">Autos Clásicos</h3>
+            <h3 class="panel-title">Hijos del Volcán</h3>
             <p class="panel-text">
-              Siluetas pulidas y tonos tierra con aire vintage.
+              Identidad volcánica, estética oscura y ejecución limpia. Accesorios y piezas por lote.
             </p>
-            <div class="cta"><a class="link" href="#contacto">Entrar a lista</a></div>
+            <div class="cta"><a class="link" href="#gorras">Ver gorras</a></div>
           </div>
         </article>
       </div>
     </div>
   </section>
-   <!-- BANNER EDITORIAL -->
-   <section>
+
+  <!-- 6) BANNER BASALTO · NOCTURNE -->
+  <section>
     <div class="wrap">
       <div class="banner">
         <div class="banner-media"
-          style="--img:url('https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769279456/2_y2cqva.png');">
+          style="--img:url('{% static "images/banners/6.webp" %}');">
           <div class="banner-copy">
             <h3>BASALTO · NOCTURNE</h3>
             <p>
-              Nocturne piezas para después del anochecer.
+              Nocturne: piezas y accesorios para después del anochecer. Producción por lote: <strong>20 días</strong>.
             </p>
             <div class="banner-actions">
-              <a class="btn primary" href="#catalogo">Explorar la colección</a>
+              <a class="btn primary" href="#gorras">Explorar gorras</a>
+              <a class="btn" href="#catalogo">Explorar camisas</a>
             </div>
           </div>
         </div>
@@ -112,20 +182,113 @@
     </div>
   </section>
 
-  <!-- CIERRE -->
-  <section class="hero hero-bg"
-    style="--hero:url('https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769279459/6_yb6kfy.png');">
-    <div class="wrap">
-      <div class="hero-content">
-        <h1>Hecho con calma. Para acompañarte siempre.</h1>
-        <p class="sub">
-          Menos piezas. Mejor ejecución.
-        </p>
-        <div class="hero-row">
-          <a class="btn primary" href="#catalogo">Ver catálogo</a>
-          <a class="btn" href="#contacto">Reservar mi pieza</a>
-        </div>
-      </div>
-    </div>
-  </section>
+  {# 7) FOOTER ya viene en base.html (no se agrega aquí) #}
+
+  <script>
+    // ✅ Extiende el buscador/filtros para que también afecte las gorras
+    document.addEventListener("DOMContentLoaded", () => {
+      const search = document.getElementById("filterSearch");
+      const clear = document.getElementById("filterClear");
+      const resultsText = document.getElementById("resultsText");
+
+      if (!search || !clear || !resultsText) return;
+
+      const tabMen = document.getElementById("tab-men");
+      const tabKids = document.getElementById("tab-kids");
+      const tabWomen = document.getElementById("tab-women");
+
+      const state = { sleeve: "all", color: "all", q: "" };
+      const norm = (s) => String(s || "").trim().toLowerCase();
+
+      function getShirtsGrid() {
+        if (tabKids && tabKids.checked) return document.getElementById("catalogGrid-kids");
+        if (tabWomen && tabWomen.checked) return document.getElementById("catalogGrid-women");
+        return document.getElementById("catalogGrid-men");
+      }
+      function getCapsGrid() {
+        return document.getElementById("catalogGrid-caps");
+      }
+
+      function setResults(shown, total) {
+        if (total === 0) {
+          resultsText.textContent = "Sin resultados";
+          return;
+        }
+        resultsText.textContent = `Mostrando ${shown} de ${total}`;
+      }
+
+      function applyToGrid(grid) {
+        if (!grid) return { shown: 0, total: 0 };
+        const cards = Array.from(grid.querySelectorAll(".card"));
+        const total = cards.length;
+        let shown = 0;
+
+        cards.forEach((card) => {
+          const sleeve = norm(card.getAttribute("data-sleeve"));
+          const color = norm(card.getAttribute("data-color"));
+          const text = norm(card.innerText);
+
+          const okSleeve = state.sleeve === "all" || sleeve === norm(state.sleeve);
+          const okColor = state.color === "all" || color === norm(state.color);
+          const okQ = !state.q || text.includes(norm(state.q));
+
+          const ok = okSleeve && okColor && okQ;
+          card.style.display = ok ? "" : "none";
+          if (ok) shown++;
+        });
+
+        return { shown, total };
+      }
+
+      function applyAll() {
+        const shirts = applyToGrid(getShirtsGrid());
+        const caps = applyToGrid(getCapsGrid());
+        setResults(shirts.shown + caps.shown, shirts.total + caps.total);
+      }
+
+      document.addEventListener("click", (e) => {
+        const btn = e.target.closest(".fbtn");
+        if (!btn) return;
+
+        const filter = btn.getAttribute("data-filter");
+        const value = btn.getAttribute("data-value");
+        if (!filter || !value) return;
+
+        state[filter] = value;
+
+        const group = btn.closest(".filter-group");
+        if (group) {
+          group.querySelectorAll(".fbtn").forEach((b) => b.classList.remove("is-active"));
+          btn.classList.add("is-active");
+        }
+
+        applyAll();
+      });
+
+      search.addEventListener("input", () => {
+        state.q = search.value || "";
+        applyAll();
+      });
+
+      clear.addEventListener("click", () => {
+        state.sleeve = "all";
+        state.color = "all";
+        state.q = "";
+        search.value = "";
+
+        document.querySelectorAll('.fbtn[data-filter="sleeve"]').forEach((b) => b.classList.remove("is-active"));
+        document.querySelector('.fbtn[data-filter="sleeve"][data-value="all"]')?.classList.add("is-active");
+
+        document.querySelectorAll('.fbtn[data-filter="color"]').forEach((b) => b.classList.remove("is-active"));
+        document.querySelector('.fbtn[data-filter="color"][data-value="all"]')?.classList.add("is-active");
+
+        applyAll();
+      });
+
+      [tabMen, tabKids, tabWomen].forEach((r) => r && r.addEventListener("change", applyAll));
+
+      applyAll();
+    });
+  </script>
+
 {% endblock %}

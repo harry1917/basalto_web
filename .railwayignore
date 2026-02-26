@@ -9,4 +9,5 @@ staticfiles/
 .DS_Store
 .git/
 node_modules/
-static/images/
+echo ".DS_Store" >> .gitignore
+echo "**/.DS_Store" >> .gitignore

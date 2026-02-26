@@ -1,185 +1,336 @@
 {% extends "base.html" %}
+{% load static %}
+
 {% block title %}NOCTURNE · BASALTO{% endblock %}
 {% block content %}
 
-<section class="hero hero-bg" style="--hero:url('https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769472366/ChatGPT_Image_26_ene_2026_06_05_35_p.m._uw5php.png');">
-    <div class="wrap">
-      <div class="hero-content" style="max-width:760px;">
-        <div class="hero-row">
-          <span class="pill">Edición oscura</span>
-          <span class="pill">Producción por lote</span>
-          <span class="pill">Detalle discreto</span>
-        </div>
-  
-        <h1 style="letter-spacing:.06em;">NOCTURNE</h1>
-        <p class="sub">
-          Para después del anochecer. Rock, sin ruido.
-        </p>
-  
-        <div class="section-actions">
-          <a class="btn primary" href="#nocturne-piezas">Ver piezas</a>
-          <a class="btn" href="#nocturne-manifiesto">Leer manifiesto</a>
-        </div>
-  
-        <p class="fineprint" style="margin-top:14px; max-width:64ch;">
-          Diseñado en El Salvador. Donde la noche no es fría, y el carácter se forja con calma.
-        </p>
+<section class="hero hero-bg"
+  style="--hero:url('{% static "images/banners/12.webp" %}');">
+  <div class="wrap">
+    <div class="hero-content" style="max-width:760px;">
+      <div class="hero-row">
+        <span class="pill">Edición oscura</span>
+        <span class="pill">Producción por lote</span>
+        <span class="pill">Detalle discreto</span>
       </div>
-    </div>
-  </section>
-  
-  <!-- BANNER EDITORIAL -->
-  <section>
-    <div class="wrap">
-      <div class="banner">
-        <div class="banner-media"
-          style="--img:url('https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769490580/Captura_de_pantalla_2026-01-26_a_la_s_11.09.20_p.m._ouzxmz.png');">
-          <div class="banner-copy">
-            <h3>Confección impecable. Estilo que permanece.</h3>
-            <p>
-              Proporción, detalle y una presencia serena.
-              BASALTO está pensado para un guardarropa esencial.
-            </p>
-            <div class="banner-actions">
-              <a class="btn primary" href="#catalogo">Explorar la colección</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  
-  <section id="nocturne-piezas">
-    <div class="wrap">
-      <div class="section-head">
-        <h2>Piezas</h2>
-        <p>
-          Piezas oscuras, bien construidas, pensadas para el uso real.
-          Nada de disfraces. Todo intención.
-        </p>
-      </div>
-  
-      <!-- Grid de productos (podés convertirlo a loop desde Django si querés) -->
-      <div class="grid">
-        <!-- Card 1 -->
-        <article class="card">
-          <div class="thumb" style="--img:url('https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769363805/ChatGPT_Image_25_ene_2026_11_55_04_a.m._ajcj3e.png');"></div>
-          <div class="meta">
-            <div class="titleRow">
-              <h4>Fear of the Dark</h4>
-              <div class="price">$39.99 <span style="color:var(--muted); font-weight:500;"> <del>$45.00</del></span></div>
-            </div>
-  
-            <p class="desc">
-              Camisa negra doble bolsillo · bordado negro sobre negro
-            </p>
-  
-            <div class="meta-row">
-              <span class="tag">Manga corta</span>
-              <span class="tag">Negro</span>
-              <span class="tag">Lote limitado</span>
-            </div>
-  
-            <div class="cta">
-              <!-- Si ya usás tu modal con .js-open-modal, conectalo aquí -->
-              <a class="link js-open-modal"
-                 href="#"
-                 data-img="REEMPLAZA_CON_IMG_FEAR_OF_THE_DARK"
-                 data-title="Fear of the Dark"
-                 data-sleeve="Manga corta"
-                 data-color="Negro"
-                 data-price="39.99"
-                 data-compare="45.00"
-                 data-fabric="Manta hindú"
-                 data-sku-map='{"S":"BAS-FOD-MC-NGR-S","M":"BAS-FOD-MC-NGR-M","L":"BAS-FOD-MC-NGR-L","XL":"BAS-FOD-MC-NGR-XL","XXL":"BAS-FOD-MC-NGR-XXL"}'
-              >
-                Ver detalle
-              </a>
-            </div>
-          </div>
-        </article>
-  
+      <h1 style="letter-spacing:.06em;">NOCTURNE</h1>
+      <p class="sub">
+        Para después del anochecer. Rock, sin ruido.
+      </p>
 
-  
-        <!-- Card 3 (placeholder: futura) -->
-        <article class="card">
-          <div class="thumb" style="--img:url('https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769489261/ChatGPT_Image_26_ene_2026_06_25_12_p.m._uk3efn.png');"></div>
-          <div class="meta">
-            <div class="titleRow">
-              <h4>Aviator 1530</h4>
-              <div class="price" style="color:var(--muted);">Próximamente</div>
-            </div>
-  
-            <p class="desc">
-                Sobrecamisa tipo field jacket inspirada en aviación europea.
-            </p>
-  
-            <div class="meta-row">
-              <span class="tag">Drop II</span>
-              <span class="tag">Azul Navy</span>
-            </div>
-  
-            <div class="cta">
-            </div>
-          </div>
-        </article>
+      <div class="section-actions">
+        <a class="btn primary" href="#nocturne-piezas">Ver piezas</a>
+        <a class="btn" href="#nocturne-manifiesto">Leer manifiesto</a>
       </div>
-    </div>
-  </section>
-  
-  <section>
-    <div class="wrap">
-      <div class="split">
-        <div class="panel">
-          <div class="panel-media" style="--img:url('https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769489406/ChatGPT_Image_26_ene_2026_06_48_43_p.m._ytdzjx.png');">
-            <span class="label">Detalles</span>
-          </div>
-          <div class="panel-body">
-            <h3 class="panel-title">Lo que importa</h3>
-            <p class="panel-text">
-              Bordados discretos, visibles solo de cerca. Bolsillos que recuerdan al escenario,
-              pero funcionan en la calle. Producción por lote, sin prisa y sin exceso.
-            </p>
-          </div>
-        </div>
-  
-        <div class="panel">
-          <div class="panel-media" style="--img:url('https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769489635/ChatGPT_Image_26_ene_2026_06_45_20_p.m._mthpv6.png');">
-            <span class="label">Origen</span>
-          </div>
-          <div class="panel-body">
-            <h3 class="panel-title">Diseñado en El Salvador</h3>
-            <p class="panel-text">
-              Donde la noche no es fría, y el carácter se forja con calma. NOCTURNE vive entre
-              la ciudad y el silencio: piezas que acompañan sin imponerse.
-            </p>
-          </div>
-        </div>
-      </div>
-  
-      <div class="hr"></div>
-  
-      <div class="banner" id="nocturne-cierre">
-        <div class="banner-media" style="--img:url('https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769489955/ChatGPT_Image_25_ene_2026_11_35_33_a.m._d5reso.png'); min-height:380px;">
-          <div class="banner-copy">
-            <h3>El rock no siempre grita.</h3>
-            <p>
-              A veces observa. NOCTURNE es para quien entiende la presencia sin anunciarla.
-            </p>
-  
-            <div class="banner-actions">
-              <a class="btn primary" href="/catalogo/">Ver catálogo</a>
-              <a class="btn" href="https://wa.me/50378455804" target="_blank" rel="noopener">Reservar por WhatsApp</a>
 
-            </div>
-          </div>
-        </div>
-      </div>
-  
-      <p class="fineprint" style="margin-top:12px; text-align:center;">
-        BASALTO · NOCTURNE — Hecho con intención.
+      <p class="fineprint" style="margin-top:14px; max-width:64ch;">
+        Diseñado en El Salvador. Donde la noche no es fría, y el carácter se forja con calma.
       </p>
     </div>
-  </section>
-  {% endblock %}
+  </div>
+</section>
+
+<!-- BANNER EDITORIAL -->
+<section>
+  <div class="wrap">
+    <div class="banner">
+      <div class="banner-media"
+        style="--img:url('{% static "images/banners/9.webp" %}');">
+        <div class="banner-copy">
+          <h3>Confección impecable. Estilo que permanece.</h3>
+          <p>
+            Proporción, detalle y una presencia serena.
+            BASALTO está pensado para un guardarropa esencial.
+          </p>
+          <div class="banner-actions">
+            <a class="btn primary" href="/catalogo/">Explorar la colección</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="nocturne-piezas">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Piezas</h2>
+      <p>
+        Piezas oscuras, bien construidas, pensadas para el uso real.
+        Nada de disfraces. Todo intención.
+      </p>
+    </div>
+
+    <div class="grid">
+
+      <!-- 1) Fear of the Dark — Camisa doble bolsillo -->
+      <article class="card">
+        <div class="thumb" style="--img:url('/static/images/catalogo/FOD.webp');"></div>
+        <div class="meta">
+          <div class="titleRow">
+            <h4>Fear of the Dark — Camisa doble bolsillo</h4>
+            <div class="price">$39.99 <span style="color:var(--muted); font-weight:500;"> <del>$45.00</del></span></div>
+          </div>
+
+          <p class="desc">
+            Camisa negra doble bolsillo · bordado negro sobre negro
+          </p>
+
+          <div class="meta-row">
+            <span class="tag">Manga corta</span>
+            <span class="tag">Negro</span>
+            <span class="tag">Lote limitado</span>
+          </div>
+
+          <div class="cta">
+            <a class="link js-open-modal"
+               href="#"
+               data-img="/static/images/catalogo/BAS-FOD-MC-NGR-M.webp"
+               data-title="Fear of the Dark — Camisa doble bolsillo"
+               data-sleeve="Manga corta"
+               data-color="Negro"
+               data-price="39.99"
+               data-compare="45.00"
+               data-fabric="Manta hindú"
+               data-kind="shirt"
+               data-sku-map='{"S":"BAS-FOD-MC-NGR-S","M":"BAS-FOD-MC-NGR-M","L":"BAS-FOD-MC-NGR-L","XL":"BAS-FOD-MC-NGR-XL","XXL":"BAS-FOD-MC-NGR-XXL"}'
+            >
+              Ver detalle
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 2) Fear of the Dark — Gorra plana camuflada Eddie (gris) -->
+      <article class="card">
+        <div class="thumb" style="--img:url('/static/images/catalogo/BAS-FOD-CAP-CAMO-EDDIE-GRY-UNI.webp');"></div>
+        <div class="meta">
+          <div class="titleRow">
+            <h4>Fear of the Dark — Gorra plana camuflada Eddie</h4>
+            <div class="price">$25.00 <span style="color:var(--muted); font-weight:500;"> <del>$30.00</del></span></div>
+          </div>
+
+          <p class="desc">
+            Bordado gris · edición limitada
+          </p>
+
+          <div class="meta-row">
+            <span class="tag">Accesorio</span>
+            <span class="tag">Camuflaje</span>
+            <span class="tag">Talla única</span>
+          </div>
+
+          <div class="cta">
+            <a class="link js-open-modal"
+               href="#"
+               data-img="/static/images/catalogo/BAS-FOD-CAP-CAMO-EDDIE-GRY-UNI.webp"
+               data-title="Fear of the Dark — Gorra plana camuflada Eddie"
+               data-sleeve="Accesorio"
+               data-color="Camuflaje"
+               data-price="25.00"
+               data-compare="30.00"
+               data-fabric="Algodón estructurado"
+               data-kind="accessory"
+               data-sku-map='{"UNI":"BAS-FOD-CAP-CAMO-EDDIE-GRY-UNI"}'
+            >
+              Ver detalle
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 3) Fear of the Dark — Gorra plana negra Eddie (gris) -->
+      <article class="card">
+        <div class="thumb" style="--img:url('/static/images/catalogo/BAS-FOD-CAP-BLK-EDDIE-GRY-UNI.webp');"></div>
+        <div class="meta">
+          <div class="titleRow">
+            <h4>Fear of the Dark — Gorra plana negra Eddie</h4>
+            <div class="price">$25.00 <span style="color:var(--muted); font-weight:500;"> <del>$30.00</del></span></div>
+          </div>
+
+          <p class="desc">
+            Bordado gris · edición limitada
+          </p>
+
+          <div class="meta-row">
+            <span class="tag">Accesorio</span>
+            <span class="tag">Negro</span>
+            <span class="tag">Talla única</span>
+          </div>
+
+          <div class="cta">
+            <a class="link js-open-modal"
+               href="#"
+               data-img="/static/images/catalogo/BAS-FOD-CAP-BLK-EDDIE-GRY-UNI.webp"
+               data-title="Fear of the Dark — Gorra plana negra Eddie"
+               data-sleeve="Accesorio"
+               data-color="Negro"
+               data-price="25.00"
+               data-compare="30.00"
+               data-fabric="Algodón estructurado"
+               data-kind="accessory"
+               data-sku-map='{"UNI":"BAS-FOD-CAP-BLK-EDDIE-GRY-UNI"}'
+            >
+              Ver detalle
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 4) Hijos del Volcán — Gorra plana negra (bordado gris) -->
+      <article class="card">
+        <div class="thumb" style="--img:url('/static/images/catalogo/BAS-HDV-CAP-BLK-HDV-GRY-UNI.webp');"></div>
+        <div class="meta">
+          <div class="titleRow">
+            <h4>Hijos del Volcán — Gorra plana negra</h4>
+            <div class="price">$25.00 <span style="color:var(--muted); font-weight:500;"> <del>$30.00</del></span></div>
+          </div>
+
+          <p class="desc">
+            Bordado gris · edición limitada
+          </p>
+
+          <div class="meta-row">
+            <span class="tag">Accesorio</span>
+            <span class="tag">Negro</span>
+            <span class="tag">Talla única</span>
+          </div>
+
+          <div class="cta">
+            <a class="link js-open-modal"
+               href="#"
+               data-img="/static/images/catalogo/BAS-HDV-CAP-BLK-HDV-GRY-UNI.webp"
+               data-title="Hijos del Volcán — Gorra plana negra"
+               data-sleeve="Accesorio"
+               data-color="Negro"
+               data-price="25.00"
+               data-compare="30.00"
+               data-fabric="Algodón estructurado"
+               data-kind="accessory"
+               data-sku-map='{"UNI":"BAS-HDV-CAP-BLK-HDV-GRY-UNI"}'
+            >
+              Ver detalle
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 5) Hijos del Volcán — Bolso beige -->
+      <article class="card">
+        <div class="thumb" style="--img:url('/static/images/catalogo/BAS-HDV-BAG-BEI-UNI.webp');"></div>
+        <div class="meta">
+          <div class="titleRow">
+            <h4>Hijos del Volcán — Bolso beige (gimnasio / salida ligera)</h4>
+            <div class="price">$35.00 <span style="color:var(--muted); font-weight:500;"> <del>$40.00</del></span></div>
+          </div>
+
+          <p class="desc">
+            Hecho en El Salvador · resistente · ligero
+          </p>
+
+          <div class="meta-row">
+            <span class="tag">Accesorio</span>
+            <span class="tag">Beige</span>
+            <span class="tag">Edición limitada</span>
+          </div>
+
+          <div class="cta">
+            <a class="link js-open-modal"
+               href="#"
+               data-img="/static/images/catalogo/BAS-HDV-BAG-BEI-UNI.webp"
+               data-title="Hijos del Volcán — Bolso beige (gimnasio / salida ligera)"
+               data-sleeve="Accesorio"
+               data-color="Beige"
+               data-price="35.00"
+               data-compare="40.00"
+               data-fabric="Lona / canvas"
+               data-kind="accessory"
+               data-sku-map='{"UNI":"BAS-HDV-BAG-BEI-UNI"}'
+            >
+              Ver detalle
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 6) Placeholder futuro (Aviator 1530) -->
+      <article class="card">
+        <div class="thumb" style="--img:url('{% static "images/banners/14.webp" %}');"></div>
+        <div class="meta">
+          <div class="titleRow">
+            <h4>Aviator 1530</h4>
+            <div class="price" style="color:var(--muted);">Próximamente</div>
+          </div>
+
+          <p class="desc">
+            Sobrecamisa tipo field jacket inspirada en aviación europea.
+          </p>
+
+          <div class="meta-row">
+            <span class="tag">Drop II</span>
+            <span class="tag">Azul Navy</span>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- resto del layout: lo dejo igual (Cloudinary) -->
+<section>
+  <div class="wrap">
+    <div class="split">
+      <div class="panel">
+        <div class="panel-media" style="--img:url('https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769489406/ChatGPT_Image_26_ene_2026_06_48_43_p.m._ytdzjx.webp');">
+          <span class="label">Detalles</span>
+        </div>
+        <div class="panel-body">
+          <h3 class="panel-title">Lo que importa</h3>
+          <p class="panel-text">
+            Bordados discretos, visibles solo de cerca. Bolsillos que recuerdan al escenario,
+            pero funcionan en la calle. Producción por lote, sin prisa y sin exceso.
+          </p>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-media" style="--img:url('https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769489635/ChatGPT_Image_26_ene_2026_06_45_20_p.m._mthpv6.webp');">
+          <span class="label">Origen</span>
+        </div>
+        <div class="panel-body">
+          <h3 class="panel-title">Diseñado en El Salvador</h3>
+          <p class="panel-text">
+            Donde la noche no es fría, y el carácter se forja con calma. NOCTURNE vive entre
+            la ciudad y el silencio: piezas que acompañan sin imponerse.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="hr"></div>
+
+    <div class="banner" id="nocturne-cierre">
+      <div class="banner-media" style="--img:url('https://res.cloudinary.com/dtiqf4cc6/image/upload/v1769489955/ChatGPT_Image_25_ene_2026_11_35_33_a.m._d5reso.webp'); min-height:380px;">
+        <div class="banner-copy">
+          <h3>El rock no siempre grita.</h3>
+          <p>
+            A veces observa. NOCTURNE es para quien entiende la presencia sin anunciarla.
+          </p>
+
+          <div class="banner-actions">
+            <a class="btn primary" href="/catalogo/">Ver catálogo</a>
+            <a class="btn" href="https://wa.me/50378455804" target="_blank" rel="noopener">Reservar por WhatsApp</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="fineprint" style="margin-top:12px; text-align:center;">
+      BASALTO · NOCTURNE — Hecho con intención.
+    </p>
+  </div>
+</section>
+
+{% endblock %}

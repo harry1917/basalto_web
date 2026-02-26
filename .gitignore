@@ -6,3 +6,11 @@ db.sqlite3
 staticfiles/
 .env
 .env.*
+.DS_Store
+**/.DS_Store
+optimized/
+
+# Ignore legacy raster assets
+*.png
+*.jpg
+*.jpeg
