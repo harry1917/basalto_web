@@ -121,7 +121,7 @@ CDN_BASE_URL = os.getenv("CDN_BASE_URL", "")
 
 
 # ✅ para desarrollo: tus assets viven en /static
-STATICFILES_DIRS = [BASE_DIR / "static"]
+
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 WHITENOISE_MANIFEST_STRICT = False
